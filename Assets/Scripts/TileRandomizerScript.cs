@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileRandomizer : MonoBehaviour
+public class TileRandomizerScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -25,9 +25,18 @@ public class TileRandomizer : MonoBehaviour
                 if (colorNum == 0)
                 {
                     colorNum = Random.Range(0, 3);
-                    if (colorNum == 0) color = Color.red;
-                    if (colorNum == 1) color = Color.green;
-                    if (colorNum == 2) color = Color.blue;
+                    if (colorNum == 0) {
+                        color = Color.red;
+                        tile.tag = "10PtTileTag";
+                    }
+                    if (colorNum == 1){
+                        color = Color.green;
+                        tile.tag = "20PtTileTag";
+                    }
+                    if (colorNum == 2){
+                        color = Color.blue;
+                        tile.tag = "30PtTileTag";
+                    }
                 }
                 renderer.material.color = color;
             }

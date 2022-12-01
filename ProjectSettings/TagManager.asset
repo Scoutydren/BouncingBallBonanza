@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BallTag
+  - 10PtTileTag
+  - 20PtTileTag
+  - 30PtTileTag
   layers:
   - Default
   - TransparentFX
