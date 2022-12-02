@@ -33,7 +33,7 @@ public class BallScript : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.velocity = new Vector3(0, 0, 0);
             rb.angularVelocity = new Vector3(0, 0, 0);
-            this.transform.position = GameObject.Find("Player").transform.position + new Vector3(0, 0, .1f); // Does not spawn at correct position
+            this.transform.position = GameObject.Find("RightHand").transform.position + new Vector3(0, 0, .3f); // Does not spawn at correct position
         }
         else if (collider.CompareTag("10PtTileTag"))
         {
