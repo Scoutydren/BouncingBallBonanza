@@ -11,6 +11,7 @@ TagManager:
   - PlayerTag
   - BackWallTag
   - EmptyTileTag
+  - LeftForceTileTag
   layers:
   - Default
   - TransparentFX

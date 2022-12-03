@@ -20,23 +20,47 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
 
-                int colorNum = Random.Range(0, 2);
-                Color color = new Color(250, 255, 255);
-                if (colorNum == 0)
+                int tileType = Random.Range(0, 6);
+                Color color = new Color(1, 1, 1);
+                if (tileType < 3)
                 {
-                    colorNum = Random.Range(0, 3);
-                    if (colorNum == 0) {
+                    int colorNum = Random.Range(0, 3);
+                    if (colorNum == 0)
+                    {
                         color = Color.red;
                         tile.tag = "10PtTileTag";
                     }
-                    if (colorNum == 1){
+                    if (colorNum == 1)
+                    {
                         color = Color.green;
                         tile.tag = "20PtTileTag";
                     }
-                    if (colorNum == 2){
+                    if (colorNum == 2)
+                    {
                         color = Color.blue;
                         tile.tag = "30PtTileTag";
                     }
+                }
+                else if (tileType == 3)
+                {
+                    tileType = Random.Range(0, 4);
+                    if (tileType == 0)
+                    {
+                        tile.tag = "LeftForceTileTag";
+                    }
+                    else if (tileType == 1)
+                    {
+                        tile.tag = "RightForceTileTag";
+                    }
+                    else if (tileType == 2)
+                    {
+                        tile.tag = "UpForceTileTag";
+                    }
+                    else
+                    {
+                        tile.tag = "DownForceTileTag";
+                    }
+                    color = new Color(.2f, .3f, .4f);
                 }
                 else
                 {
