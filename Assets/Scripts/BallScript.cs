@@ -5,11 +5,19 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     GlobalScript global;
+    private int numHits;
+    private int hitThreshold;
 
     // Start is called before the first frame update
     void Start()
     {
         global = GameObject.Find("Global").GetComponent<GlobalScript>();
+
+        this.numHits = 0;
+        this.hitThreshold = 0;
+
+        // Place ball
+        this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
     }
 
     // Update is called once per frame
@@ -18,32 +26,46 @@ public class BallScript : MonoBehaviour
         
     }
 
+    void ResetBall()
+    {
+        // Reset ball in front of player hand
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = new Vector3(0, 0, 0);
+        rb.angularVelocity = new Vector3(0, 0, 0);
+        this.transform.position = GameObject.Find("RightHand").transform.position + new Vector3(0, 0, .3f);
+
+        this.numHits = 0;
+        this.hitThreshold = 20;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
-        if (collider.CompareTag("PlayerTag")) {
-            // Set speed to 0
-            Debug.Log("Collide with player");
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = new Vector3(0, 0, 0);
-            rb.angularVelocity = new Vector3(0, 0, 0);
-        } else if (collider.CompareTag("BackWallTag"))
+        if (collider.CompareTag("BackWallTag"))
         {
-            // Reset ball
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = new Vector3(0, 0, 0);
-            rb.angularVelocity = new Vector3(0, 0, 0);
-            this.transform.position = GameObject.Find("RightHand").transform.position + new Vector3(0, 0, .3f); // Does not spawn at correct position
+            this.ResetBall();
         }
         else if (collider.CompareTag("10PtTileTag"))
         {
             global.score += 10;
+            this.numHits += 1;
         } else if (collider.CompareTag("20PtTileTag"))
         {
             global.score += 20;
+            this.numHits += 1;
         } else if (collider.CompareTag("30PtTileTag"))
         {
             global.score += 30;
+            this.numHits += 1;
+        } else if (collider.CompareTag("EmptyTileTag"))
+        {
+            this.numHits += 1;
+        }
+
+        // Check if ball has collided more than 20 times
+        if (this.numHits > this.hitThreshold)
+        {
+            this.ResetBall();
         }
     }
 }

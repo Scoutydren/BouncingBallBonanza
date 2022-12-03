@@ -38,6 +38,10 @@ public class TileRandomizerScript : MonoBehaviour
                         tile.tag = "30PtTileTag";
                     }
                 }
+                else
+                {
+                    tile.tag = "EmptyTileTag";
+                }
                 renderer.material.color = color;
             }
         }

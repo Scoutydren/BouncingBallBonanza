@@ -552,11 +552,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   fingerColliders:
-    thumbColliders: []
-    indexColliders: []
-    middleColliders: []
-    ringColliders: []
-    pinkyColliders: []
+    thumbColliders:
+    - {fileID: 0}
+    indexColliders:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    middleColliders:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    ringColliders:
+    - {fileID: 0}
+    - {fileID: 0}
+    pinkyColliders:
+    - {fileID: 0}
+    - {fileID: 0}
   collidersInRadius: 0
 --- !u!54 &54000012734507470
 Rigidbody:
