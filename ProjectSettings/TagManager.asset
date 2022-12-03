@@ -10,15 +10,16 @@ TagManager:
   - 30PtTileTag
   - PlayerTag
   - BackWallTag
+  - EmptyTileTag
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
-  - 
-  - 
+  - Ball
+  - Player
   - 
   - 
   - 

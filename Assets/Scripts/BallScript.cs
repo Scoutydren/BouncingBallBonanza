@@ -18,6 +18,9 @@ public class BallScript : MonoBehaviour
 
         // Place ball
         this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
+
+        // Ignore collision between ball and player
+        Physics.IgnoreLayerCollision(6, 7);
     }
 
     // Update is called once per frame

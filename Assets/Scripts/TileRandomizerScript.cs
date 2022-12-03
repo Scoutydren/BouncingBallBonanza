@@ -7,7 +7,7 @@ public class TileRandomizerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] walls = new string[5] { "frontWall", "leftWall", "rightWall", "topWall", "bottomWall" };
+        string[] walls = new string[5] { "FrontWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
         foreach (string wallStr in walls)
         {
