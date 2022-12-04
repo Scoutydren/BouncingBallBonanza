@@ -12,6 +12,9 @@ TagManager:
   - BackWallTag
   - EmptyTileTag
   - LeftForceTileTag
+  - RightForceTileTag
+  - UpForceTileTag
+  - DownForceTileTag
   layers:
   - Default
   - TransparentFX
