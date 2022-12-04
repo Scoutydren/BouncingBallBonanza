@@ -47,6 +47,8 @@ public class TileRandomizerScript : MonoBehaviour
                     if (tileType == 0)
                     {
                         tile.tag = "LeftForceTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Force");
+                        Debug.Log("pikachu");
                     }
                     else if (tileType == 1)
                     {
