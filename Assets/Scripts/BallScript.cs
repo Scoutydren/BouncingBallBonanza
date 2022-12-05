@@ -17,7 +17,7 @@ public class BallScript : MonoBehaviour
 
         this.rb = GetComponent<Rigidbody>(); ;
         this.numHits = 0;
-        this.hitThreshold = 0;
+        this.hitThreshold = 20;
 
         // Place ball
         this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
@@ -38,8 +38,8 @@ public class BallScript : MonoBehaviour
         this.rb.velocity = new Vector3(0, 0, 0);
         this.rb.angularVelocity = new Vector3(0, 0, 0);
         this.transform.position = GameObject.Find("RightHand").transform.position + new Vector3(0, 0, .3f);
-        
-        this.hitThreshold = 20;
+
+        this.numHits = 0;
         this.global.FinishThrow();
     }
 
@@ -94,7 +94,8 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("2xMultiplier"))
         {
             this.global.multiplier = 2;
-        } 
+            this.numHits += 1;
+        }
 
         // Empty tiles
         else if (collider.CompareTag("EmptyTileTag"))
@@ -103,7 +104,7 @@ public class BallScript : MonoBehaviour
         }
 
 
-        // Check if ball has collided more than 20 times
+        // Resets to prevent infinite loops
         if (this.numHits > this.hitThreshold)
         {
             this.ResetBall();
