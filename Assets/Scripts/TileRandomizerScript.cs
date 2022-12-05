@@ -31,7 +31,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
 
-                int tileType = Random.Range(0, 6);
+                int tileType = Random.Range(0, 7);
                 Color color = new Color(1, 1, 1);
                 if (tileType < 3)
                 {
@@ -75,6 +75,11 @@ public class TileRandomizerScript : MonoBehaviour
                         tile.tag = "DownForceTileTag";
                     }
                     color = new Color(.2f, .3f, .4f);
+                }
+                else if (tileType == 4)
+                {
+                    tile.tag = "2xMultiplier";
+                    tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("2xMultiplier");
                 }
                 else
                 {

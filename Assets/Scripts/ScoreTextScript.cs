@@ -23,13 +23,17 @@ public class ScoreTextScript : MonoBehaviour
 
     private void FormatScore()
     {
-        if (global.numHits == 0)
+        if (global.accumulatedScore == 0)
         {
             this.scoreText.text = "Score: " + this.global.score.ToString();
         }
+        else if (global.multiplier == 1)
+        {
+            this.scoreText.text = "Score: " + this.global.score.ToString() + " + " + this.global.accumulatedScore;
+        }
         else
         {
-            this.scoreText.text = "Score: " + this.global.score.ToString() + " + " + this.global.numHits;
+            this.scoreText.text = "Score: " + this.global.score.ToString() + " + " + this.global.accumulatedScore + " x " + this.global.multiplier;
         }
     }
 }
