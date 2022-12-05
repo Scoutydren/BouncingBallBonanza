@@ -40,7 +40,7 @@ public class BallScript : MonoBehaviour
 
         this.global.numHits = 0;
         this.hitThreshold = 20;
-        this.global.currThrow += 1;
+        this.global.FinishThrow();
     }
 
     void OnCollisionEnter(Collision collision)

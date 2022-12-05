@@ -7,6 +7,17 @@ public class TileRandomizerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RandomizeTiles(1, 1);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void RandomizeTiles(int currThrow, int randomizeThreshold)
+    {
         string[] walls = new string[5] { "FrontWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
         foreach (string wallStr in walls)
@@ -27,18 +38,21 @@ public class TileRandomizerScript : MonoBehaviour
                     int colorNum = Random.Range(0, 3);
                     if (colorNum == 0)
                     {
-                        color = Color.red;
+                        // color = Color.red;
                         tile.tag = "10PtTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("10Points");
                     }
                     if (colorNum == 1)
                     {
-                        color = Color.green;
+                        // color = Color.green;
                         tile.tag = "20PtTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("20Points");
                     }
                     if (colorNum == 2)
                     {
-                        color = Color.blue;
+                        // color = Color.blue;
                         tile.tag = "30PtTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("30Points");
                     }
                 }
                 else if (tileType == 3)
@@ -47,8 +61,6 @@ public class TileRandomizerScript : MonoBehaviour
                     if (tileType == 0)
                     {
                         tile.tag = "LeftForceTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Force");
-                        Debug.Log("pikachu");
                     }
                     else if (tileType == 1)
                     {
@@ -71,11 +83,5 @@ public class TileRandomizerScript : MonoBehaviour
                 renderer.material.color = color;
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
