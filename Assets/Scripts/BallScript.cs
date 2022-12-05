@@ -15,6 +15,8 @@ public class BallScript : MonoBehaviour
     private bool isGrabbed;
     private bool isThrown;
 
+    private float forceAmt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,8 @@ public class BallScript : MonoBehaviour
 
         this.isGrabbed = false;
         this.isThrown = false;
+
+        this.forceAmt = 4f;
 
         // Place ball
         this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
@@ -89,6 +93,8 @@ public class BallScript : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
+        GameObject tile = collision.gameObject;
+        string wallName = tile.transform.parent.name;
 
         // Point tiles
         if (collider.CompareTag("BackWallTag"))
@@ -117,22 +123,66 @@ public class BallScript : MonoBehaviour
         // Force tiles
         else if (collider.CompareTag("LeftForceTileTag"))
         {
-            this.rb.velocity += new Vector3(-4f, 0, 0);
+            if (wallName == "FrontWall" || wallName == "TopWall" || wallName == "BottomWall")
+            {
+                this.rb.velocity += new Vector3(-forceAmt, 0, 0);
+            }
+            else if (wallName == "LeftWall")
+            {
+                this.rb.velocity += new Vector3(0, -forceAmt, 0);
+            }
+            else if (wallName == "RightWall")
+            {
+                this.rb.velocity += new Vector3(0, forceAmt, 0);
+            }
             this.numHits += 1;
         }
         else if (collider.CompareTag("RightForceTileTag"))
         {
-            this.rb.velocity += new Vector3(4f, 0, 0);
+            if (wallName == "FrontWall" || wallName == "TopWall" || wallName == "BottomWall")
+            {
+                this.rb.velocity += new Vector3(forceAmt, 0, 0);
+            }
+            else if (wallName == "LeftWall")
+            {
+                this.rb.velocity += new Vector3(0, forceAmt, 0);
+            }
+            else if (wallName == "RightWall")
+            {
+                this.rb.velocity += new Vector3(0, -forceAmt, 0);
+            }
             this.numHits += 1;
         }
         else if (collider.CompareTag("UpForceTileTag"))
         {
-            this.rb.velocity += new Vector3(0, 4f, 0);
+            if (wallName == "FrontWall" || wallName == "LeftWall" || wallName == "RightWall")
+            {
+                this.rb.velocity += new Vector3(0, forceAmt, 0);
+            }
+            else if (wallName == "TopWall")
+            {
+                this.rb.velocity += new Vector3(0, 0, -forceAmt);
+            }
+            else if (wallName == "BottomWall")
+            {
+                this.rb.velocity += new Vector3(0, 0, forceAmt);
+            }
             this.numHits += 1;
         }
         else if (collider.CompareTag("DownForceTileTag"))
         {
-            this.rb.velocity += new Vector3(0, -4f, 0);
+            if (wallName == "FrontWall" || wallName == "LeftWall" || wallName == "RightWall")
+            {
+                this.rb.velocity += new Vector3(0, -forceAmt, 0);
+            }
+            else if (wallName == "TopWall")
+            {
+                this.rb.velocity += new Vector3(0, 0, forceAmt);
+            }
+            else if (wallName == "BottomWall")
+            {
+                this.rb.velocity += new Vector3(0, 0, -forceAmt);
+            }
             this.numHits += 1;
         }
         
