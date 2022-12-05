@@ -61,20 +61,24 @@ public class TileRandomizerScript : MonoBehaviour
                     if (tileType == 0)
                     {
                         tile.tag = "LeftForceTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("LeftForce");
                     }
                     else if (tileType == 1)
                     {
                         tile.tag = "RightForceTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("RightForce");
                     }
                     else if (tileType == 2)
                     {
                         tile.tag = "UpForceTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("UpForce");
                     }
                     else
                     {
                         tile.tag = "DownForceTileTag";
+                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("DownForce");
                     }
-                    color = new Color(.2f, .3f, .4f);
+                    // color = new Color(.2f, .3f, .4f);
                 }
                 else if (tileType == 4)
                 {
