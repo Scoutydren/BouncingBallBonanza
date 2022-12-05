@@ -12,8 +12,7 @@ public class BallScript : MonoBehaviour
     private int hitThreshold;
     private int numHits;
 
-    private bool isGrabbed = false;
-    private bool isThrown = false;
+    private bool isThrown;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +24,8 @@ public class BallScript : MonoBehaviour
         this.numHits = 0;
         this.hitThreshold = 10;
 
+        this.isThrown = false;
+
         // Place ball
         this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
 
@@ -35,10 +36,30 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(interactable != null);
-        // if (interactable != null && interactable.attachedToHand != null)
+        if (interactable.attachedToHand == null)
         {
+            if (!isThrown)
+            {
+                // Ball was just thrown
+                isThrown = true;
+            }
+            else
+            {
+                // Ball moving in cube
+            }
+        }
+        else
+        {
+            if (!isThrown)
+            {
+                // First time player picks it up
+            }
+            else
+            {
+                // Picked up after thrown
+                this.global.accumulatedScore += 50;
+                ResetBall();
+            }
         }
     }
 
@@ -50,6 +71,7 @@ public class BallScript : MonoBehaviour
         this.transform.position = GameObject.Find("RightHand").transform.position + new Vector3(0, 0, .3f);
 
         this.numHits = 0;
+        this.isThrown = false;
         this.global.FinishThrow();
     }
 
