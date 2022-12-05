@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 public class BallScript : MonoBehaviour
 {
     public GlobalScript global;
 
     private Rigidbody rb;
+    private Interactable interactable;
     private int hitThreshold;
     private int numHits;
+
+    private bool isGrabbed = false;
+    private bool isThrown = false;
 
     // Start is called before the first frame update
     void Start()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
+        this.interactable = GetComponent<Interactable>();
 
         this.rb = GetComponent<Rigidbody>(); ;
         this.numHits = 0;
@@ -29,7 +35,11 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        Debug.Log(interactable != null);
+        // if (interactable != null && interactable.attachedToHand != null)
+        {
+        }
     }
 
     void ResetBall()
