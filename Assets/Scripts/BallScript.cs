@@ -17,7 +17,7 @@ public class BallScript : MonoBehaviour
 
         this.rb = GetComponent<Rigidbody>(); ;
         this.numHits = 0;
-        this.hitThreshold = 20;
+        this.hitThreshold = 10;
 
         // Place ball
         this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
@@ -54,16 +54,19 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("10PtTileTag"))
         {
+            Debug.Log("10");
             this.global.accumulatedScore += 10;
             this.numHits += 1;
         } 
         else if (collider.CompareTag("20PtTileTag"))
         {
+            Debug.Log("20");
             this.global.accumulatedScore += 20;
             this.numHits += 1;
         }
         else if (collider.CompareTag("30PtTileTag"))
         {
+            Debug.Log("30");
             this.global.accumulatedScore += 30;
             this.numHits += 1;
         } 

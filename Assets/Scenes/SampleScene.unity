@@ -3027,7 +3027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   accumulatedScore: 0
-  currThrow: 0
+  numThrows: 0
   multiplier: 0
   randomizeThreshold: 0
   randomizer: {fileID: 0}
@@ -5847,7 +5847,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &769934709
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -84,6 +84,7 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
+                    tile.GetComponent<MeshRenderer>().material = null;
                 }
                 renderer.material.color = color;
             }
