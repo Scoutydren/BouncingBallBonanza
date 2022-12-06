@@ -42,10 +42,6 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (isThrown)
-        {
-            Physics.IgnoreLayerCollision(6, 7, ignore=false);
-        }*/
         if (interactable.attachedToHand == null)
         {
             if (!isThrown)
@@ -63,6 +59,8 @@ public class BallScript : MonoBehaviour
             else
             {
                 // Ball moving in cube
+                // Allow player to hit ball
+                Physics.IgnoreLayerCollision(6, 7, false);
             }
         }
         else
@@ -109,11 +107,12 @@ public class BallScript : MonoBehaviour
         GameObject tile = collision.gameObject;
         string wallName = tile.transform.parent.name;
 
-        // Point tiles
-        if (collider.CompareTag("BackWallTag"))
+        // Reset when ball hits black hole tile
+        if (collider.CompareTag("BlackHoleTileTag"))
         {
             this.ResetBall();
         }
+        // Point tiles
         else if (collider.CompareTag("10PtTileTag"))
         {
             this.global.accumulatedScore += 10;

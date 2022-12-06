@@ -16,6 +16,7 @@ TagManager:
   - UpForceTileTag
   - DownForceTileTag
   - 2xMultiplier
+  - BlackHoleTileTag
   layers:
   - Default
   - TransparentFX
