@@ -133,7 +133,7 @@ public class BallScript : MonoBehaviour
         // Force tiles
         else if (collider.CompareTag("LeftForceTileTag"))
         {
-            if (wallName == "FrontWall" || wallName == "TopWall" || wallName == "BottomWall")
+            if (wallName == "FrontWall" || wallName == "BackWall" || wallName == "TopWall" || wallName == "BottomWall")
             {
                 this.rb.velocity += new Vector3(-forceAmt, 0, 0);
             }
@@ -149,7 +149,7 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("RightForceTileTag"))
         {
-            if (wallName == "FrontWall" || wallName == "TopWall" || wallName == "BottomWall")
+            if (wallName == "FrontWall" || wallName == "BackWall" || wallName == "TopWall" || wallName == "BottomWall")
             {
                 this.rb.velocity += new Vector3(forceAmt, 0, 0);
             }
@@ -165,7 +165,7 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("UpForceTileTag"))
         {
-            if (wallName == "FrontWall" || wallName == "LeftWall" || wallName == "RightWall")
+            if (wallName == "FrontWall" || wallName == "BackWall" || wallName == "LeftWall" || wallName == "RightWall")
             {
                 this.rb.velocity += new Vector3(0, forceAmt, 0);
             }
@@ -181,7 +181,7 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("DownForceTileTag"))
         {
-            if (wallName == "FrontWall" || wallName == "LeftWall" || wallName == "RightWall")
+            if (wallName == "FrontWall" || wallName == "BackWall" || wallName == "LeftWall" || wallName == "RightWall")
             {
                 this.rb.velocity += new Vector3(0, -forceAmt, 0);
             }

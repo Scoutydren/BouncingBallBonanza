@@ -18,7 +18,7 @@ public class TileRandomizerScript : MonoBehaviour
 
     public void RandomizeTiles(int currThrow, int randomizeThreshold)
     {
-        string[] walls = new string[5] { "FrontWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
+        string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
         foreach (string wallStr in walls)
         {
