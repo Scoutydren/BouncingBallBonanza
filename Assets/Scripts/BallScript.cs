@@ -91,7 +91,7 @@ public class BallScript : MonoBehaviour
         // Reset ball in front of player hand
         this.rb.velocity = new Vector3(0, 0, 0);
         this.rb.angularVelocity = new Vector3(0, 0, 0);
-        this.transform.position = GameObject.Find("RightHand").transform.position + new Vector3(0, 0, .3f);
+        this.transform.position = GameObject.Find("RightHand").transform.position;
 
         this.numHits = 0;
         this.isGrabbed = false;
