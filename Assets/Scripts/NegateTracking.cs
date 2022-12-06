@@ -10,7 +10,7 @@ public class NegateTracking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.startPosition = new Vector3(-0.07f, 0.2f, -4.5f);
+        this.startPosition = new Vector3(0f, 3.2f, -4.8f);
     }
 
     // Update is called once per frame

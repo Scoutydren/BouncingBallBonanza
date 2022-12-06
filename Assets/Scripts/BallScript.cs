@@ -70,9 +70,18 @@ public class BallScript : MonoBehaviour
             }
             else
             {
-                // Picked up after thrown
-                this.global.accumulatedScore += 50;
-                ResetBall();
+                if (numHits == 0)
+                {
+                    // Grabbed it before it collides with a wall
+                    isThrown = false;
+                }
+                else
+                {
+                    // Picked up after thrown
+                    this.global.accumulatedScore += 50;
+                    ResetBall();
+                }
+
             }
         }
     }
@@ -103,19 +112,16 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("10PtTileTag"))
         {
-            Debug.Log("10");
             this.global.accumulatedScore += 10;
             this.numHits += 1;
         } 
         else if (collider.CompareTag("20PtTileTag"))
         {
-            Debug.Log("20");
             this.global.accumulatedScore += 20;
             this.numHits += 1;
         }
         else if (collider.CompareTag("30PtTileTag"))
         {
-            Debug.Log("30");
             this.global.accumulatedScore += 30;
             this.numHits += 1;
         } 
@@ -129,11 +135,11 @@ public class BallScript : MonoBehaviour
             }
             else if (wallName == "LeftWall")
             {
-                this.rb.velocity += new Vector3(0, -forceAmt, 0);
+                this.rb.velocity += new Vector3(0, 0, -forceAmt);
             }
             else if (wallName == "RightWall")
             {
-                this.rb.velocity += new Vector3(0, forceAmt, 0);
+                this.rb.velocity += new Vector3(0, 0, forceAmt);
             }
             this.numHits += 1;
         }
@@ -145,11 +151,11 @@ public class BallScript : MonoBehaviour
             }
             else if (wallName == "LeftWall")
             {
-                this.rb.velocity += new Vector3(0, forceAmt, 0);
+                this.rb.velocity += new Vector3(0, 0, forceAmt);
             }
             else if (wallName == "RightWall")
             {
-                this.rb.velocity += new Vector3(0, -forceAmt, 0);
+                this.rb.velocity += new Vector3(0, 0, -forceAmt);
             }
             this.numHits += 1;
         }
