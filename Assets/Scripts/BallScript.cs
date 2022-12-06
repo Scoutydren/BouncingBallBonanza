@@ -42,6 +42,10 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*if (isThrown)
+        {
+            Physics.IgnoreLayerCollision(6, 7, ignore=false);
+        }*/
         if (interactable.attachedToHand == null)
         {
             if (!isThrown)
