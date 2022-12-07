@@ -31,9 +31,9 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
 
-                int tileType = Random.Range(0, 8);
-                Color color = new Color(1, 1, 1);
-                if (tileType < 3)
+                int tileType = Random.Range(0, 100);
+                Color color = Color.white;
+                if (tileType < 35)
                 {
                     int colorNum = Random.Range(0, 3);
                     if (colorNum == 0)
@@ -55,7 +55,7 @@ public class TileRandomizerScript : MonoBehaviour
                         tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("30Points");
                     }
                 }
-                else if (tileType == 3)
+                else if (tileType < 45)
                 {
                     tileType = Random.Range(0, 4);
                     if (tileType == 0)
@@ -80,15 +80,15 @@ public class TileRandomizerScript : MonoBehaviour
                     }
                     // color = new Color(.2f, .3f, .4f);
                 }
-                else if (tileType == 4)
+                else if (tileType < 50)
                 {
                     tile.tag = "2xMultiplier";
                     tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("2xMultiplier");
                 }
-                else if (tileType == 5)
+                else if (tileType < 60)
                 {
                     tile.tag = "BlackHoleTileTag";
-                    tile.GetComponent<MeshRenderer>().material = null; // TODO: make material black
+                    color = Color.black;
                 }
                 else
                 {

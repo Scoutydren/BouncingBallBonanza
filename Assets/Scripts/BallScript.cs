@@ -33,10 +33,7 @@ public class BallScript : MonoBehaviour
         this.forceAmt = 4f;
 
         // Place ball
-        this.transform.position = new Vector3(0.75f, 1.0f, -4.4f);
-
-        // Ignore collision between ball and player
-        Physics.IgnoreLayerCollision(6, 7);
+        this.transform.position = new Vector3(0.6f, 1.2f, -3.1f);
     }
 
     // Update is called once per frame
@@ -49,6 +46,8 @@ public class BallScript : MonoBehaviour
                 if (!isGrabbed)
                 {
                     // Ball is in front of player
+                    // Allow hand to go through ball
+                    Physics.IgnoreLayerCollision(6, 7, true);
                 }
                 else
                 {

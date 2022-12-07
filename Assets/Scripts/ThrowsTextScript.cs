@@ -18,6 +18,6 @@ public class ThrowsTextScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.throwsText.text = "Throws: " + this.global.numThrows.ToString();
+        this.throwsText.text = "Throws: " + this.global.numThrows.ToString() + " / 20";
     }
 }
