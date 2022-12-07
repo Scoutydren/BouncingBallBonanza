@@ -119,6 +119,7 @@ public class BallScript : MonoBehaviour
         // Reset when ball hits black hole tile
         if (collider.CompareTag("BlackHoleTileTag"))
         {
+            this.global.accumulatedScore -= 50;
             this.ResetBall();
         }
         // Point tiles
