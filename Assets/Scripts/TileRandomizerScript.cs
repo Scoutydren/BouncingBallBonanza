@@ -30,6 +30,7 @@ public class TileRandomizerScript : MonoBehaviour
                 Transform tileTransform = wall.transform.GetChild(i);
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
+                MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
 
                 int tileType = Random.Range(0, 100);
                 Color color = Color.white;
@@ -40,19 +41,19 @@ public class TileRandomizerScript : MonoBehaviour
                     {
                         // color = Color.red;
                         tile.tag = "10PtTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("10Points");
+                        meshRenderer.material = Resources.Load<Material>("10Points");
                     }
                     if (colorNum == 1)
                     {
                         // color = Color.green;
                         tile.tag = "20PtTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("20Points");
+                        meshRenderer.material = Resources.Load<Material>("20Points");
                     }
                     if (colorNum == 2)
                     {
                         // color = Color.blue;
                         tile.tag = "30PtTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("30Points");
+                        meshRenderer.material = Resources.Load<Material>("30Points");
                     }
                 }
                 else if (tileType < 45)
@@ -61,29 +62,28 @@ public class TileRandomizerScript : MonoBehaviour
                     if (tileType == 0)
                     {
                         tile.tag = "LeftForceTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("LeftForce");
+                        meshRenderer.material = Resources.Load<Material>("LeftForce");
                     }
                     else if (tileType == 1)
                     {
                         tile.tag = "RightForceTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("RightForce");
+                        meshRenderer.material = Resources.Load<Material>("RightForce");
                     }
                     else if (tileType == 2)
                     {
                         tile.tag = "UpForceTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("UpForce");
+                        meshRenderer.material = Resources.Load<Material>("UpForce");
                     }
                     else
                     {
                         tile.tag = "DownForceTileTag";
-                        tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("DownForce");
+                        meshRenderer.material = Resources.Load<Material>("DownForce");
                     }
-                    // color = new Color(.2f, .3f, .4f);
                 }
                 else if (tileType < 50)
                 {
                     tile.tag = "2xMultiplier";
-                    tile.GetComponent<MeshRenderer>().material = Resources.Load<Material>("2xMultiplier");
+                    meshRenderer.material = Resources.Load<Material>("2xMultiplier");
                 }
                 else if (tileType < 60)
                 {
@@ -93,7 +93,7 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    tile.GetComponent<MeshRenderer>().material = null;
+                    meshRenderer.material = null;
                 }
                 renderer.material.color = color;
             }

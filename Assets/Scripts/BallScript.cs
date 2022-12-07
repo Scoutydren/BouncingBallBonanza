@@ -25,7 +25,7 @@ public class BallScript : MonoBehaviour
 
         this.rb = GetComponent<Rigidbody>(); ;
         this.numHits = 0;
-        this.hitThreshold = 10;
+        this.hitThreshold = 50;
 
         this.isGrabbed = false;
         this.isThrown = false;
@@ -100,10 +100,20 @@ public class BallScript : MonoBehaviour
         this.global.FinishThrow();
     }
 
+    void ResetTile(GameObject tile, Renderer renderer, MeshRenderer meshRenderer)
+    {
+        // Set tile to empty tile
+        tile.tag = "EmptyTileTag";
+        meshRenderer.material = null;
+        renderer.material.color = Color.white;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
         GameObject tile = collision.gameObject;
+        Renderer renderer = tile.GetComponent<Renderer>();
+        MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
         string wallName = tile.transform.parent.name;
 
         // Reset when ball hits black hole tile
@@ -116,17 +126,20 @@ public class BallScript : MonoBehaviour
         {
             this.global.accumulatedScore += 10;
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         } 
         else if (collider.CompareTag("20PtTileTag"))
         {
             this.global.accumulatedScore += 20;
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
         else if (collider.CompareTag("30PtTileTag"))
         {
             this.global.accumulatedScore += 30;
             this.numHits += 1;
-        } 
+            this.ResetTile(tile, renderer, meshRenderer);
+        }
         
         // Force tiles
         else if (collider.CompareTag("LeftForceTileTag"))
@@ -144,6 +157,7 @@ public class BallScript : MonoBehaviour
                 this.rb.velocity += new Vector3(0, 0, forceAmt);
             }
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
         else if (collider.CompareTag("RightForceTileTag"))
         {
@@ -160,6 +174,7 @@ public class BallScript : MonoBehaviour
                 this.rb.velocity += new Vector3(0, 0, -forceAmt);
             }
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
         else if (collider.CompareTag("UpForceTileTag"))
         {
@@ -176,6 +191,7 @@ public class BallScript : MonoBehaviour
                 this.rb.velocity += new Vector3(0, 0, forceAmt);
             }
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
         else if (collider.CompareTag("DownForceTileTag"))
         {
@@ -192,6 +208,7 @@ public class BallScript : MonoBehaviour
                 this.rb.velocity += new Vector3(0, 0, -forceAmt);
             }
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
         
         // Multiplier tiles
@@ -199,6 +216,7 @@ public class BallScript : MonoBehaviour
         {
             this.global.multiplier = 2;
             this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
 
         // Empty tiles
