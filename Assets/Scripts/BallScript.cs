@@ -30,7 +30,7 @@ public class BallScript : MonoBehaviour
         this.isGrabbed = false;
         this.isThrown = false;
 
-        this.forceAmt = 4f;
+        this.forceAmt = 2f;
 
         // Place ball
         this.transform.position = new Vector3(0.6f, 1.2f, -3.1f);
