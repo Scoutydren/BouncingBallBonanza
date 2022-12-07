@@ -7,7 +7,7 @@ public class TileRandomizerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RandomizeTiles(1, 1);
+        RandomizeTiles(0, 1);
     }
 
     // Update is called once per frame
@@ -16,7 +16,7 @@ public class TileRandomizerScript : MonoBehaviour
         
     }
 
-    public void RandomizeTiles(int currThrow, int randomizeThreshold)
+    public void RandomizeTiles(int numThrows, int randomizeThreshold)
     {
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
@@ -85,7 +85,7 @@ public class TileRandomizerScript : MonoBehaviour
                     tile.tag = "2xMultiplier";
                     meshRenderer.material = Resources.Load<Material>("2xMultiplier");
                 }
-                else if (tileType < 60)
+                else if (tileType < 60 + 2 * numThrows) // Make more difficult by increasing portion of black holes
                 {
                     tile.tag = "BlackHoleTileTag";
                     color = Color.black;
