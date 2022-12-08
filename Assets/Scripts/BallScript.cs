@@ -84,7 +84,7 @@ public class BallScript : MonoBehaviour
         }*/
     }
 
-    void ResetBall()
+    public void ResetBall()
     {
         // Reset ball in front of player hand
         this.rb.velocity = new Vector3(0, 0, 0);
@@ -124,18 +124,21 @@ public class BallScript : MonoBehaviour
         {
             this.global.accumulatedScore += 10;
             this.numHits += 1;
+            this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
         } 
         else if (collider.CompareTag("20PtTileTag"))
         {
             this.global.accumulatedScore += 20;
             this.numHits += 1;
+            this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
         }
         else if (collider.CompareTag("30PtTileTag"))
         {
             this.global.accumulatedScore += 30;
             this.numHits += 1;
+            this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
         }
         

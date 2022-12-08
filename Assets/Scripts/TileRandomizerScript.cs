@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class TileRandomizerScript : MonoBehaviour
 {
+    public GlobalScript global;
+
     // Start is called before the first frame update
     void Start()
     {
-        RandomizeTiles(4, 1);
+        this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
+        RandomizeTiles(0, 1);
     }
 
     // Update is called once per frame
@@ -51,12 +54,6 @@ public class TileRandomizerScript : MonoBehaviour
             deathPercentage = 0.02f + (difficulty - 2) * 0.02f;
         }
 
-        Debug.Log(pointPercentage);
-        Debug.Log(forcePercentage);
-        Debug.Log(multiplierPercentage);
-        Debug.Log(deathPercentage);
-
-
         foreach (string wallStr in walls)
         {
             GameObject wall = GameObject.Find(wallStr);
@@ -73,6 +70,9 @@ public class TileRandomizerScript : MonoBehaviour
                 Color color = Color.white;
                 if (rand < pointPercentage)
                 {
+                    // Count number of point tiles
+                    this.global.numPointTiles += 1;
+
                     rand = Random.Range(0f, 1f);
                     if (rand < 1f / 3f)
                     {
