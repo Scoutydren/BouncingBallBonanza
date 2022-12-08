@@ -39,7 +39,7 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (interactable.attachedToHand == null)
+        /*if (interactable.attachedToHand == null)
         {
             if (!isThrown)
             {
@@ -84,7 +84,7 @@ public class BallScript : MonoBehaviour
                 }
 
             }
-        }
+        }*/
     }
 
     void ResetBall()
@@ -92,7 +92,7 @@ public class BallScript : MonoBehaviour
         // Reset ball in front of player hand
         this.rb.velocity = new Vector3(0, 0, 0);
         this.rb.angularVelocity = new Vector3(0, 0, 0);
-        this.transform.position = GameObject.Find("RightHand").transform.position;
+        this.transform.position = GameObject.Find("VRCamera").transform.position + new Vector3(0, 0, 0.5f);
 
         this.numHits = 0;
         this.isGrabbed = false;
@@ -145,9 +145,13 @@ public class BallScript : MonoBehaviour
         // Force tiles
         else if (collider.CompareTag("LeftForceTileTag"))
         {
-            if (wallName == "FrontWall" || wallName == "BackWall" || wallName == "TopWall" || wallName == "BottomWall")
+            if (wallName == "FrontWall" || wallName == "TopWall" || wallName == "BottomWall")
             {
                 this.rb.velocity += new Vector3(-forceAmt, 0, 0);
+            }
+            else if (wallName == "BackWall")
+            {
+                this.rb.velocity += new Vector3(forceAmt, 0, 0);
             }
             else if (wallName == "LeftWall")
             {
@@ -162,9 +166,13 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("RightForceTileTag"))
         {
-            if (wallName == "FrontWall" || wallName == "BackWall" || wallName == "TopWall" || wallName == "BottomWall")
+            if (wallName == "FrontWall" ||wallName == "TopWall" || wallName == "BottomWall")
             {
                 this.rb.velocity += new Vector3(forceAmt, 0, 0);
+            }
+            else if (wallName == "BackWall")
+            {
+                this.rb.velocity += new Vector3(-forceAmt, 0, 0);
             }
             else if (wallName == "LeftWall")
             {

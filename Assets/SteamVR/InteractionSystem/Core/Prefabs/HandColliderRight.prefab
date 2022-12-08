@@ -550,7 +550,7 @@ MonoBehaviour:
   hand: {fileID: 0}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 127
   fingerColliders:
     thumbColliders:
     - {fileID: 0}
