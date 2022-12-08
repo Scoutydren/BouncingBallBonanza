@@ -7,7 +7,7 @@ public class TileRandomizerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RandomizeTiles(0, 1);
+        RandomizeTiles(4, 1);
     }
 
     // Update is called once per frame
@@ -19,6 +19,43 @@ public class TileRandomizerScript : MonoBehaviour
     public void RandomizeTiles(int difficulty, int randomizeThreshold)
     {
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
+
+        // First level should only have empty and point tiles
+        float pointPercentage = 0.3f;
+        float forcePercentage = 0f;
+        float multiplierPercentage = 0f;
+        float deathPercentage = 0f;
+
+        if (difficulty == 1)
+        {
+            // Second level introduces force tiles
+            forcePercentage = 0.05f;
+        }
+        else if (difficulty == 2)
+        {
+            // Third level introduces multiplier tiles
+            forcePercentage = 0.05f;
+            multiplierPercentage = 0.03f;
+        }
+        else if (difficulty == 3)
+        {
+            // Fourth level introduces death tiles
+            forcePercentage = 0.05f;
+            multiplierPercentage = 0.03f;
+            deathPercentage = 0.02f;
+        }
+        else if (difficulty > 3)
+        {
+            forcePercentage = 0.05f + (difficulty - 2) * 0.01f;
+            multiplierPercentage = 0.03f;
+            deathPercentage = 0.02f + (difficulty - 2) * 0.02f;
+        }
+
+        Debug.Log(pointPercentage);
+        Debug.Log(forcePercentage);
+        Debug.Log(multiplierPercentage);
+        Debug.Log(deathPercentage);
+
 
         foreach (string wallStr in walls)
         {
@@ -32,44 +69,41 @@ public class TileRandomizerScript : MonoBehaviour
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
 
-                int tileType = Random.Range(0, 100);
+                float rand = Random.Range(0f, 1f);
                 Color color = Color.white;
-                if (tileType < 35)
+                if (rand < pointPercentage)
                 {
-                    int colorNum = Random.Range(0, 3);
-                    if (colorNum == 0)
+                    rand = Random.Range(0f, 1f);
+                    if (rand < 1f / 3f)
                     {
-                        // color = Color.red;
                         tile.tag = "10PtTileTag";
                         meshRenderer.material = Resources.Load<Material>("10Points");
                     }
-                    if (colorNum == 1)
+                    else if (rand < 2f / 3f)
                     {
-                        // color = Color.green;
                         tile.tag = "20PtTileTag";
                         meshRenderer.material = Resources.Load<Material>("20Points");
                     }
-                    if (colorNum == 2)
+                    else
                     {
-                        // color = Color.blue;
                         tile.tag = "30PtTileTag";
                         meshRenderer.material = Resources.Load<Material>("30Points");
                     }
                 }
-                else if (tileType < 45)
+                else if (rand < pointPercentage + forcePercentage)
                 {
-                    tileType = Random.Range(0, 4);
-                    if (tileType == 0)
+                    rand = Random.Range(0f, 1f);
+                    if (rand < 0.25f)
                     {
                         tile.tag = "LeftForceTileTag";
                         meshRenderer.material = Resources.Load<Material>("LeftForce");
                     }
-                    else if (tileType == 1)
+                    else if (rand < 0.5f)
                     {
                         tile.tag = "RightForceTileTag";
                         meshRenderer.material = Resources.Load<Material>("RightForce");
                     }
-                    else if (tileType == 2)
+                    else if (rand < 0.75f)
                     {
                         tile.tag = "UpForceTileTag";
                         meshRenderer.material = Resources.Load<Material>("UpForce");
@@ -80,12 +114,12 @@ public class TileRandomizerScript : MonoBehaviour
                         meshRenderer.material = Resources.Load<Material>("DownForce");
                     }
                 }
-                else if (tileType < 50)
+                else if (rand < pointPercentage + forcePercentage + multiplierPercentage)
                 {
                     tile.tag = "2xMultiplier";
                     meshRenderer.material = Resources.Load<Material>("2xMultiplier");
                 }
-                else if (tileType < 52 + 0.5f * difficulty) // Make more difficult by increasing portion of black holes
+                else if (rand < pointPercentage + forcePercentage + multiplierPercentage + deathPercentage)
                 {
                     tile.tag = "BlackHoleTileTag";
                     color = Color.black;
