@@ -33,7 +33,8 @@ public class BallScript : MonoBehaviour
         this.forceAmt = 2f;
 
         // Place ball
-        this.transform.position = new Vector3(0.6f, 1.2f, -3.1f);
+        //this.transform.position = new Vector3(0.6f, 1.2f, -3.1f);
+        this.transform.position = new Vector3(0f, 1.2f, 0f);
     }
 
     // Update is called once per frame
