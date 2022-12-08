@@ -16,7 +16,7 @@ public class TileRandomizerScript : MonoBehaviour
         
     }
 
-    public void RandomizeTiles(int numThrows, int randomizeThreshold)
+    public void RandomizeTiles(int difficulty, int randomizeThreshold)
     {
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
@@ -85,7 +85,7 @@ public class TileRandomizerScript : MonoBehaviour
                     tile.tag = "2xMultiplier";
                     meshRenderer.material = Resources.Load<Material>("2xMultiplier");
                 }
-                else if (tileType < 52 + 0.5f * numThrows) // Make more difficult by increasing portion of black holes
+                else if (tileType < 52 + 0.5f * difficulty) // Make more difficult by increasing portion of black holes
                 {
                     tile.tag = "BlackHoleTileTag";
                     color = Color.black;
