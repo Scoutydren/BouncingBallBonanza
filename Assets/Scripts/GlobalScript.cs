@@ -13,6 +13,7 @@ public class GlobalScript : MonoBehaviour
     public int accumulatedScore;
     public int level;
     public int multiplier;
+    public int throws;
     
     public int numPointTiles; // Number of point tiles in world
     public int randomizeThreshold; // How many throws until the board randomizes
@@ -30,6 +31,7 @@ public class GlobalScript : MonoBehaviour
         this.accumulatedScore = 0;
         this.level = 0;
         this.multiplier = 0;
+        this.throws = 0;
         this.numPointTiles = 1;
         this.randomizeThreshold = 1;
     }
@@ -37,6 +39,11 @@ public class GlobalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (throws == 0)
+        {
+            this.ballScript.RemoveThrowability();
+        }
+
         // Moves to next level and resets any needed variables
         AdvanceLevel();
     }
@@ -64,6 +71,7 @@ public class GlobalScript : MonoBehaviour
         this.timer = this.maxTimer;
         this.level += 1;
         this.multiplier = 1;
+        this.throws = 0;
 
         // TODO accumulated score func
         this.ballScript.ResetBall();
@@ -78,4 +86,22 @@ public class GlobalScript : MonoBehaviour
             randomizer.RandomizeTiles(this.numThrows, this.randomizeThreshold);
         }
     }*/
+
+    public void IncrThrow()
+    {
+        this.throws += 1;
+        if (this.throws == 1)
+        {
+            this.ballScript.AddThrowability();
+        }
+    }
+
+    public void DecrThrow()
+    {
+        this.throws -= 1;
+        if (this.throws == 0)
+        {
+            this.ballScript.RemoveThrowability();
+        }
+    }
 }

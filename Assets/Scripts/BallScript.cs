@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Valve.VR.InteractionSystem;
 
 public class BallScript : MonoBehaviour
@@ -14,8 +15,10 @@ public class BallScript : MonoBehaviour
 
     private GlobalScript global;
     private GameObject canvas;
+    private GameObject camera;
     private Rigidbody rb;
     private Interactable interactable;
+    private Throwable throwable;
     private int hitThreshold;
     private int numHits;
 
@@ -28,7 +31,9 @@ public class BallScript : MonoBehaviour
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
         this.canvas = GameObject.Find("Canvas");
+        this.camera = GameObject.Find("VRCamera");
         this.interactable = GetComponent<Interactable>();
+        this.throwable = GetComponent<Throwable>();
         this.rb = GetComponent<Rigidbody>();
 
         this.numHits = 0;
@@ -48,52 +53,6 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (interactable.attachedToHand == null)
-        {
-            if (!isThrown)
-            {
-                if (!isGrabbed)
-                {
-                    // Ball is in front of player
-                    // Allow hand to go through ball
-                    Physics.IgnoreLayerCollision(6, 7, true);
-                }
-                else
-                {
-                    // Ball was just thrown
-                    isThrown = true;
-                }
-            }
-            else
-            {
-                // Ball moving in cube
-                // Allow player to hit ball
-                Physics.IgnoreLayerCollision(6, 7, false);
-            }
-        }
-        else
-        {
-            if (!isThrown)
-            {
-                // First time player picks it up
-                isGrabbed = true;
-            }
-            else
-            {
-                if (numHits == 0)
-                {
-                    // Grabbed it before it collides with a wall
-                    isThrown = false;
-                }
-                else
-                {
-                    // Picked up after thrown
-                    this.global.accumulatedScore += 50;
-                    ResetBall();
-                }
-
-            }
-        }*/
     }
 
     public void ResetBall()
@@ -250,6 +209,14 @@ public class BallScript : MonoBehaviour
             this.ResetTile(tile, renderer, meshRenderer);
         }
 
+        // Throw tiles
+        else if (collider.CompareTag("ThrowTileTag"))
+        {
+            this.global.IncrThrow();
+            this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
+        }
+
         // Empty tiles
         else if (collider.CompareTag("EmptyTileTag"))
         {
@@ -288,9 +255,23 @@ public class BallScript : MonoBehaviour
 
     private void SpawnPointUI(GameObject prefab, Collider collider)
     {
-        Vector3 interpPos = 0.85f * this.transform.position + 0.15f * collider.transform.position;
+        Vector3 interpPos = 0.75f * this.transform.position + 0.15f * collider.transform.position + 0.10f * this.camera.transform.position;
 
         GameObject ui = GameObject.Instantiate(prefab, interpPos, Quaternion.identity);
         ui.transform.parent = this.canvas.transform;
+    }
+
+    public void RemoveThrowability()
+    {
+        this.interactable.highlightOnHover = false;
+        GameObject.Destroy(this.throwable);
+    }
+
+    public void AddThrowability()
+    {
+        this.throwable = this.gameObject.AddComponent<Throwable>();
+        this.throwable.onDetachFromHand = new UnityEvent();
+        this.throwable.onDetachFromHand.AddListener(this.global.DecrThrow);
+        this.interactable.highlightOnHover = true;
     }
 }
