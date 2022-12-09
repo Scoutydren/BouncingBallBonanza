@@ -8,6 +8,7 @@ public class BallScript : MonoBehaviour
     public GlobalScript global;
     public AudioClip collisionSound;
     public AudioClip slapSound;
+    public AudioClip coinSound;
 
     private Rigidbody rb;
     private Interactable interactable;
@@ -252,7 +253,7 @@ public class BallScript : MonoBehaviour
         Debug.Log(collider.gameObject.tag);
         if (collider.CompareTag("Untagged") || collider.CompareTag("PlayerTag"))
         {
-            AudioSource.PlayClipAtPoint(this.slapSound, this.gameObject.transform.position);
+            AudioSource.PlayClipAtPoint(this.slapSound, this.gameObject.transform.position, 0.7f);
         }
         else if (collider.CompareTag("BlackHoleTileTag"))
         {
@@ -261,6 +262,11 @@ public class BallScript : MonoBehaviour
         else
         {
             AudioSource.PlayClipAtPoint(this.collisionSound, this.gameObject.transform.position);
+            if (collider.CompareTag("10PtTileTag") || collider.CompareTag("20PtTileTag") ||
+                collider.CompareTag("20PtTileTag"))
+            {
+                AudioSource.PlayClipAtPoint(this.coinSound, this.gameObject.transform.position);
+            }
         }
     }
 }
