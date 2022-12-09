@@ -32,6 +32,7 @@ public class BallScript : MonoBehaviour
         this.isThrown = false;
 
         this.forceAmt = 2f;
+
     }
 
     // Update is called once per frame

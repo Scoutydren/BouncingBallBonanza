@@ -3,7 +3,9 @@ guid: 3fd03e5d849e58b449e43d453664aad0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - global: {instanceID: 0}
+  - collisionSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
