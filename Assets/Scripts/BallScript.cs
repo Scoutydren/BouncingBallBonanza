@@ -13,6 +13,7 @@ public class BallScript : MonoBehaviour
     public GameObject plus30UIPrefab;
 
     private GlobalScript global;
+    private GameObject canvas;
     private Rigidbody rb;
     private Interactable interactable;
     private int hitThreshold;
@@ -27,6 +28,7 @@ public class BallScript : MonoBehaviour
     void Start()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
+        this.canvas = GameObject.Find("Canvas");
         this.interactable = GetComponent<Interactable>();
 
         this.rb = GetComponent<Rigidbody>(); ;
@@ -131,8 +133,9 @@ public class BallScript : MonoBehaviour
         // Point tiles
         else if (collider.CompareTag("10PtTileTag"))
         {
-            GameObject.Instantiate(this.plus10UIPrefab, this.transform.position, Quaternion.identity);
-            
+            // Spawn + 10 points
+            this.SpawnPointUI(plus10UIPrefab, collider);
+
             this.global.accumulatedScore += 10;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
@@ -140,6 +143,9 @@ public class BallScript : MonoBehaviour
         } 
         else if (collider.CompareTag("20PtTileTag"))
         {
+            // Spawn + 20 points
+            this.SpawnPointUI(plus20UIPrefab, collider);
+
             this.global.accumulatedScore += 20;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
@@ -147,6 +153,9 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("30PtTileTag"))
         {
+            // Spawn + 30 points
+            this.SpawnPointUI(plus30UIPrefab, collider);
+
             this.global.accumulatedScore += 30;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
@@ -267,10 +276,18 @@ public class BallScript : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(this.collisionSound, this.gameObject.transform.position);
             if (collider.CompareTag("10PtTileTag") || collider.CompareTag("20PtTileTag") ||
-                collider.CompareTag("20PtTileTag"))
+                collider.CompareTag("30PtTileTag"))
             {
                 AudioSource.PlayClipAtPoint(this.coinSound, this.gameObject.transform.position);
             }
         }
+    }
+
+    private void SpawnPointUI(GameObject prefab, Collider collider)
+    {
+        Vector3 interpPos = 0.85f * this.transform.position + 0.15f * collider.transform.position;
+
+        GameObject ui = GameObject.Instantiate(prefab, interpPos, Quaternion.identity);
+        ui.transform.parent = this.canvas.transform;
     }
 }

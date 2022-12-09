@@ -5289,10 +5289,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd03e5d849e58b449e43d453664aad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  global: {fileID: 0}
   collisionSound: {fileID: 8300000, guid: e9b7d3395b728ba48b921959f71ffa19, type: 3}
   slapSound: {fileID: 8300000, guid: 280c6cf0c4be3ea438eae79b6ea4ea62, type: 3}
   coinSound: {fileID: 8300000, guid: 7fb1a37e01a6415439ab825c1345c08f, type: 3}
+  plus10UIPrefab: {fileID: 8040057859654230312, guid: 99081c96792c9eb4c8406230ad1dc6ee,
+    type: 3}
+  plus20UIPrefab: {fileID: 8040057859654230312, guid: 54008a2cd37c182498953bc8bdd79d61,
+    type: 3}
+  plus30UIPrefab: {fileID: 8040057859654230312, guid: 5edb0b0fc852e744584564004b3fdf44,
+    type: 3}
 --- !u!1 &807316995
 GameObject:
   m_ObjectHideFlags: 0
