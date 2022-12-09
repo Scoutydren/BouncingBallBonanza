@@ -5290,7 +5290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   global: {fileID: 0}
-  collisionSound: {fileID: 8300000, guid: 487c7e2a3cbdebb459627f7154f45506, type: 3}
+  collisionSound: {fileID: 8300000, guid: 5be807fea299a0c4eb9b4f81646748a4, type: 3}
 --- !u!1 &807316995
 GameObject:
   m_ObjectHideFlags: 0
