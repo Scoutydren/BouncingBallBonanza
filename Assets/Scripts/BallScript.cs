@@ -5,11 +5,14 @@ using Valve.VR.InteractionSystem;
 
 public class BallScript : MonoBehaviour
 {
-    public GlobalScript global;
     public AudioClip collisionSound;
     public AudioClip slapSound;
     public AudioClip coinSound;
+    public GameObject plus10UIPrefab;
+    public GameObject plus20UIPrefab;
+    public GameObject plus30UIPrefab;
 
+    private GlobalScript global;
     private Rigidbody rb;
     private Interactable interactable;
     private int hitThreshold;
@@ -128,6 +131,8 @@ public class BallScript : MonoBehaviour
         // Point tiles
         else if (collider.CompareTag("10PtTileTag"))
         {
+            GameObject.Instantiate(this.plus10UIPrefab, this.transform.position, Quaternion.identity);
+            
             this.global.accumulatedScore += 10;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
