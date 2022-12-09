@@ -12,7 +12,6 @@ public class TileRandomizerScript : MonoBehaviour
     void Start()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
-        RandomizeTiles(0, 1);
     }
 
     // Update is called once per frame
@@ -40,7 +39,7 @@ public class TileRandomizerScript : MonoBehaviour
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
         // First level should only have empty and point tiles
-        float pointPercentage = 0.3f;
+        float pointPercentage = 0.008f;
         float forcePercentage = 0f;
         float multiplierPercentage = 0f;
         float deathPercentage = 0f;
@@ -70,6 +69,8 @@ public class TileRandomizerScript : MonoBehaviour
             deathPercentage = 0.02f + (difficulty - 2) * 0.02f;
         }
 
+        int numPointTiles = 0;
+
         foreach (string wallStr in walls)
         {
             GameObject wall = GameObject.Find(wallStr);
@@ -88,7 +89,7 @@ public class TileRandomizerScript : MonoBehaviour
                 if (randomizedList[i] < pointPercentage * numTiles)
                 {
                     // Count number of point tiles
-                    this.global.numPointTiles += 1;
+                    numPointTiles += 1;
 
                     float rand = Random.Range(0f, 1f);
                     if (rand < 1f / 3f)
@@ -149,5 +150,7 @@ public class TileRandomizerScript : MonoBehaviour
                 renderer.material.color = color;
             }
         }
+
+        this.global.numPointTiles = numPointTiles;
     }
 }

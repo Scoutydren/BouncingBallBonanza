@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ThrowsTextScript : MonoBehaviour
+public class LevelTextScript : MonoBehaviour
 {
     private GlobalScript global;
-    private TextMeshProUGUI throwsText;
+    private TextMeshProUGUI leveltext;
 
     // Start is called before the first frame update
     void Start()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
-        this.throwsText = GetComponent<TextMeshProUGUI>();
+        this.leveltext = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.throwsText.text = "Throws: " + this.global.numThrows.ToString() + " / 20";
+        this.leveltext.text = "Level: " + this.global.level.ToString();
     }
 }

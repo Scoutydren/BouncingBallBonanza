@@ -24,14 +24,13 @@ public class BallScript : MonoBehaviour
 
     private float forceAmt;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
         this.canvas = GameObject.Find("Canvas");
         this.interactable = GetComponent<Interactable>();
+        this.rb = GetComponent<Rigidbody>();
 
-        this.rb = GetComponent<Rigidbody>(); ;
         this.numHits = 0;
         this.hitThreshold = 50;
 
@@ -39,7 +38,11 @@ public class BallScript : MonoBehaviour
         this.isThrown = false;
 
         this.forceAmt = 2f;
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -103,7 +106,6 @@ public class BallScript : MonoBehaviour
         this.numHits = 0;
         this.isGrabbed = false;
         this.isThrown = false;
-        this.global.FinishThrow();
     }
 
     void ResetTile(GameObject tile, Renderer renderer, MeshRenderer meshRenderer)
@@ -136,7 +138,7 @@ public class BallScript : MonoBehaviour
             // Spawn + 10 points
             this.SpawnPointUI(plus10UIPrefab, collider);
 
-            this.global.accumulatedScore += 10;
+            this.global.score += 10;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
@@ -146,7 +148,7 @@ public class BallScript : MonoBehaviour
             // Spawn + 20 points
             this.SpawnPointUI(plus20UIPrefab, collider);
 
-            this.global.accumulatedScore += 20;
+            this.global.score += 20;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
@@ -156,7 +158,7 @@ public class BallScript : MonoBehaviour
             // Spawn + 30 points
             this.SpawnPointUI(plus30UIPrefab, collider);
 
-            this.global.accumulatedScore += 30;
+            this.global.score += 30;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
@@ -258,7 +260,8 @@ public class BallScript : MonoBehaviour
         // Resets to prevent infinite loops
         if (this.numHits > this.hitThreshold)
         {
-            this.ResetBall();
+            // depreicated because of timer
+            // this.ResetBall();
         }
     }
 
