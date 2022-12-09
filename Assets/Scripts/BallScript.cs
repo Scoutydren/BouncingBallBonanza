@@ -250,7 +250,6 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionSound(Collider collider)
     {
-        Debug.Log(collider.gameObject.tag);
         if (collider.CompareTag("Untagged") || collider.CompareTag("PlayerTag"))
         {
             AudioSource.PlayClipAtPoint(this.slapSound, this.gameObject.transform.position, 0.7f);
