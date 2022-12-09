@@ -248,11 +248,12 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionSound(Collider collider)
     {
-        if (collider.CompareTag("Untagged"))
+        Debug.Log(collider.gameObject.tag);
+        if (collider.CompareTag("Untagged") || collider.CompareTag("PlayerTag"))
         {
             // Do nothing. This is LeftHand/RightHand
         }
-        if (collider.CompareTag("BlackHoleTileTag"))
+        else if (collider.CompareTag("BlackHoleTileTag"))
         {
             // Add black hole sound effect
         }
