@@ -7,6 +7,7 @@ public class BallScript : MonoBehaviour
 {
     public GlobalScript global;
     public AudioClip collisionSound;
+    public AudioClip slapSound;
 
     private Rigidbody rb;
     private Interactable interactable;
@@ -250,7 +251,7 @@ public class BallScript : MonoBehaviour
     {
         if (collider.CompareTag("Untagged"))
         {
-            // Do nothing. This is LeftHand/RightHand
+            AudioSource.PlayClipAtPoint(this.slapSound, this.gameObject.transform.position);
         }
         if (collider.CompareTag("BlackHoleTileTag"))
         {
