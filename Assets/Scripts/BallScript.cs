@@ -6,6 +6,7 @@ using Valve.VR.InteractionSystem;
 public class BallScript : MonoBehaviour
 {
     public GlobalScript global;
+    public AudioClip collisionSound;
 
     private Rigidbody rb;
     private Interactable interactable;
@@ -86,7 +87,7 @@ public class BallScript : MonoBehaviour
 
     public void ResetBall()
     {
-        // Reset ball in front of player hand
+        // Reset ball in front of player camera
         this.rb.velocity = new Vector3(0, 0, 0);
         this.rb.angularVelocity = new Vector3(0, 0, 0);
         this.transform.position = GameObject.Find("VRCamera").transform.position + new Vector3(0, 0, 0.5f);
@@ -112,6 +113,8 @@ public class BallScript : MonoBehaviour
         Renderer renderer = tile.GetComponent<Renderer>();
         MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
         string wallName = tile.transform.parent.name;
+
+        OnCollisionSound(collider);
 
         // Reset when ball hits black hole tile
         if (collider.CompareTag("BlackHoleTileTag"))
@@ -239,6 +242,18 @@ public class BallScript : MonoBehaviour
         if (this.numHits > this.hitThreshold)
         {
             this.ResetBall();
+        }
+    }
+
+    private void OnCollisionSound(Collider collider)
+    {
+        if (collider.CompareTag("BlackHoleTileTag"))
+        {
+            // Add black hole sound effect
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(this.collisionSound, this.gameObject.transform.position);
         }
     }
 }
