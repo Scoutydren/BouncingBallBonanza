@@ -1,9 +1,11 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TileRandomizerScript : MonoBehaviour
 {
+    // Shuffle array
     public GlobalScript global;
 
     // Start is called before the first frame update
@@ -17,6 +19,20 @@ public class TileRandomizerScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    // Randomizes list of tiles per face
+    private List<int> RandomizeTilesPerFace(int numTiles)
+    {
+        // Initialize array
+        List<int> randomizedList = new List<int>();
+        for (int i = 0; i < numTiles; i++)
+        {
+            randomizedList.Add(i);
+        }
+
+        randomizedList = randomizedList.OrderBy(x => Random.value).ToList();
+        return randomizedList;
     }
 
     public void RandomizeTiles(int difficulty, int randomizeThreshold)
@@ -59,6 +75,8 @@ public class TileRandomizerScript : MonoBehaviour
             GameObject wall = GameObject.Find(wallStr);
             int numTiles = wall.transform.childCount;
 
+            List<int> randomizedList = RandomizeTilesPerFace(numTiles);
+
             for (int i = 0; i < numTiles; i++)
             {
                 Transform tileTransform = wall.transform.GetChild(i);
@@ -66,14 +84,13 @@ public class TileRandomizerScript : MonoBehaviour
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
 
-                float rand = Random.Range(0f, 1f);
                 Color color = Color.white;
-                if (rand < pointPercentage)
+                if (randomizedList[i] < pointPercentage * numTiles)
                 {
                     // Count number of point tiles
                     this.global.numPointTiles += 1;
 
-                    rand = Random.Range(0f, 1f);
+                    float rand = Random.Range(0f, 1f);
                     if (rand < 1f / 3f)
                     {
                         tile.tag = "10PtTileTag";
@@ -90,9 +107,9 @@ public class TileRandomizerScript : MonoBehaviour
                         meshRenderer.material = Resources.Load<Material>("30Points");
                     }
                 }
-                else if (rand < pointPercentage + forcePercentage)
+                else if (randomizedList[i] < (pointPercentage + forcePercentage) * numTiles)
                 {
-                    rand = Random.Range(0f, 1f);
+                    float rand = Random.Range(0f, 1f);
                     if (rand < 0.25f)
                     {
                         tile.tag = "LeftForceTileTag";
@@ -114,12 +131,12 @@ public class TileRandomizerScript : MonoBehaviour
                         meshRenderer.material = Resources.Load<Material>("DownForce");
                     }
                 }
-                else if (rand < pointPercentage + forcePercentage + multiplierPercentage)
+                else if (randomizedList[i] < (pointPercentage + forcePercentage + multiplierPercentage) * numTiles)
                 {
                     tile.tag = "2xMultiplier";
                     meshRenderer.material = Resources.Load<Material>("2xMultiplier");
                 }
-                else if (rand < pointPercentage + forcePercentage + multiplierPercentage + deathPercentage)
+                else if (randomizedList[i] < (pointPercentage + forcePercentage + multiplierPercentage + deathPercentage) * numTiles)
                 {
                     tile.tag = "BlackHoleTileTag";
                     color = Color.black;
