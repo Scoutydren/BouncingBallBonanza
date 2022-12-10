@@ -17,6 +17,7 @@ TagManager:
   - DownForceTileTag
   - 2xMultiplier
   - BlackHoleTileTag
+  - ThrowTileTag
   layers:
   - Default
   - TransparentFX

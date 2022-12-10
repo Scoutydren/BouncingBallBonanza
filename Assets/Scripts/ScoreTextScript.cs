@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem.Controls;
 
 public class ScoreTextScript : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class ScoreTextScript : MonoBehaviour
     void Start()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
+        Math.Round(0.5d, MidpointRounding.AwayFromZero);
         this.scoreText = GetComponent<TextMeshProUGUI>();
     }
 

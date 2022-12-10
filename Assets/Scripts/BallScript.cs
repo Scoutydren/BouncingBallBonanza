@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,7 +61,14 @@ public class BallScript : MonoBehaviour
         // Reset ball in front of player camera
         this.rb.velocity = new Vector3(0, 0, 0);
         this.rb.angularVelocity = new Vector3(0, 0, 0);
-        this.transform.position = GameObject.Find("VRCamera").transform.position + new Vector3(0, 0, 0.5f);
+        try
+        {
+            this.transform.position = GameObject.Find("VRCamera").transform.position + new Vector3(0, 0, 0.5f);
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Exception in BallScript.cs ResetBall()");
+        }
 
         this.numHits = 0;
         this.isGrabbed = false;
