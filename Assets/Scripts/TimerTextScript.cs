@@ -26,7 +26,7 @@ public class TimerTextScript : MonoBehaviour
         }
         else if (this.global.timer > 0.2 * this.global.maxTimer)
         {
-            this.timerText.color = Color.yellow;
+            this.timerText.color = new Color(255, 165, 0);
         }
         else if (Math.Round(0.2 * this.global.maxTimer - this.global.timer, MidpointRounding.AwayFromZero) % 2 == 1)
         {

@@ -17,14 +17,18 @@ public class GlobalScript : MonoBehaviour
     
     public int numPointTiles; // Number of point tiles in world
     public int randomizeThreshold; // How many throws until the board randomizes
+    
+    public AudioClip tickSound; // Timer should be at most 135 seconds
 
     private BallScript ballScript;
     private TileRandomizerScript randomizer;
+    private AudioSource audio;
 
     void Awake()
     {
         this.ballScript = GameObject.Find("Ball").GetComponent<BallScript>();
         this.randomizer = GetComponent<TileRandomizerScript>();
+        this.audio = GetComponent<AudioSource>();
 
         this.maxTimer = 60;
         this.score = 0;
@@ -59,6 +63,10 @@ public class GlobalScript : MonoBehaviour
             AdvanceLevel();
             // TODO add sound effect
         }
+        else if (this.timer > 0 && this.timer <= 0.2 * this.maxTimer)
+        {
+            if (!audio.isPlaying) this.audio.Play();
+        }
         else if (this.timer <= 0)
         {
             AdvanceLevel();
@@ -68,12 +76,14 @@ public class GlobalScript : MonoBehaviour
 
     void AdvanceLevel()
     {
+        this.audio.Stop();
+        
         this.timer = this.maxTimer;
         this.level += 1;
         this.multiplier = 1;
         this.throws = 0;
 
-        // TODO accumulated score func
+        // TODO accumulated score func from multiplier
         this.ballScript.ResetBall();
         this.randomizer.RandomizeTiles(this.level, this.randomizeThreshold);
     }

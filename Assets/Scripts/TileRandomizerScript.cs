@@ -41,8 +41,9 @@ public class TileRandomizerScript : MonoBehaviour
         // First level should only have empty and point tiles
         float pointPercentage = 0.008f;
         float forcePercentage = 0f;
-        float multiplierPercentage = 0.1f;
+        float multiplierPercentage = 0f;
         float deathPercentage = 0f;
+        float throwPercentage = 0.2f;
 
         if (difficulty == 1)
         {
@@ -134,15 +135,18 @@ public class TileRandomizerScript : MonoBehaviour
                 }
                 else if (randomizedList[i] < (pointPercentage + forcePercentage + multiplierPercentage) * numTiles)
                 {
-                    /*tile.tag = "2xMultiplier";
-                    meshRenderer.material = Resources.Load<Material>("2xMultiplier");*/
-                    tile.tag = "ThrowTileTag";
+                    tile.tag = "2xMultiplier";
                     meshRenderer.material = Resources.Load<Material>("2xMultiplier");
                 }
                 else if (randomizedList[i] < (pointPercentage + forcePercentage + multiplierPercentage + deathPercentage) * numTiles)
                 {
                     tile.tag = "BlackHoleTileTag";
                     color = Color.black;
+                }
+                else if (randomizedList[i] < (pointPercentage + forcePercentage + multiplierPercentage + deathPercentage + throwPercentage) * numTiles)
+                {
+                    tile.tag = "ThrowTileTag";
+                    color = Color.cyan;
                 }
                 else
                 {

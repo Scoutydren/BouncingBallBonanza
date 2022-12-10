@@ -14,7 +14,6 @@ public class ScoreTextScript : MonoBehaviour
     void Start()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
-        Math.Round(0.5d, MidpointRounding.AwayFromZero);
         this.scoreText = GetComponent<TextMeshProUGUI>();
     }
 
