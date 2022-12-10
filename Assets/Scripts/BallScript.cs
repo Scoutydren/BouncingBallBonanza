@@ -44,6 +44,9 @@ public class BallScript : MonoBehaviour
         this.isThrown = false;
 
         this.forceAmt = 2f;
+
+        // Ignore collision between ball and player's head
+        //Physics.IgnoreLayerCollision(6, 7);
     }
 
     // Start is called before the first frame update
@@ -242,7 +245,7 @@ public class BallScript : MonoBehaviour
 
     private void OnCollisionSound(Collider collider)
     {
-        if (collider.CompareTag("Untagged") || collider.CompareTag("PlayerTag"))
+        if (collider.CompareTag("Untagged") || collider.CompareTag("PlayerHandTag"))
         {
             AudioSource.PlayClipAtPoint(this.slapSound, this.gameObject.transform.position, 0.7f);
         }

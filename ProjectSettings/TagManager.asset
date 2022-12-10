@@ -18,6 +18,7 @@ TagManager:
   - 2xMultiplier
   - BlackHoleTileTag
   - ThrowTileTag
+  - PlayerHandTag
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Water
   - UI
   - Ball
-  - Player
+  - PlayerHead
   - 
   - 
   - 
