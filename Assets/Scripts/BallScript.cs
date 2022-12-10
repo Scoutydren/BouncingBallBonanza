@@ -20,6 +20,7 @@ public class BallScript : MonoBehaviour
     private Rigidbody rb;
     private Interactable interactable;
     private Throwable throwable;
+
     private int hitThreshold;
     private int numHits;
 
@@ -27,6 +28,7 @@ public class BallScript : MonoBehaviour
     private bool isThrown;
 
     private float forceAmt;
+    private float constantSpeed;
 
     void Awake()
     {
@@ -44,6 +46,7 @@ public class BallScript : MonoBehaviour
         this.isThrown = false;
 
         this.forceAmt = 2f;
+        this.constantSpeed = 2f;
 
         // Ignore collision between ball and player's head
         //Physics.IgnoreLayerCollision(6, 7);
@@ -57,7 +60,15 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Constant velocity
+        this.rb.velocity = this.constantSpeed * rb.velocity.normalized;
     }
+
+    public void IncrSpeed()
+    {
+        this.constantSpeed += 0.25f;
+    }
+
 
     public void ResetBall()
     {
@@ -66,7 +77,7 @@ public class BallScript : MonoBehaviour
         this.rb.angularVelocity = new Vector3(0, 0, 0);
         try
         {
-            this.transform.position = GameObject.Find("VRCamera").transform.position + new Vector3(0, 0, 0.5f);
+            this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0, 0, 0.5f));
         }
         catch (Exception e)
         {

@@ -85,6 +85,7 @@ public class GlobalScript : MonoBehaviour
 
         // TODO accumulated score func from multiplier
         this.ballScript.ResetBall();
+        this.ballScript.IncrSpeed();
         this.randomizer.RandomizeTiles(this.level, this.randomizeThreshold);
     }
 

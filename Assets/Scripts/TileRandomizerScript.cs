@@ -39,7 +39,7 @@ public class TileRandomizerScript : MonoBehaviour
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
 
         // First level should only have empty and point tiles
-        float pointPercentage = 0.15f;
+        float pointPercentage = 0.05f;
         float forcePercentage = 0f;
         float multiplierPercentage = 0f;
         float deathPercentage = 0f;
