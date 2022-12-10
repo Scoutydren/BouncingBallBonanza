@@ -38,7 +38,7 @@ public class TimerTextScript : MonoBehaviour
         }
 
         // Keep in front of player
-        /*this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0, 0, 3f));
-        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;*/
+        this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.57f, 0.5f));
+        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
     }
 }

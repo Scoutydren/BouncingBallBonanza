@@ -39,6 +39,7 @@ public class ScoreTextScript : MonoBehaviour
         }
 
         // Keep in front of player
-        this.transform.position = GameObject.Find("LeftHand").transform.TransformPoint(new Vector3(2f, 0f, 0f));
+        this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.35f, 0.5f));
+        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
     }
 }
