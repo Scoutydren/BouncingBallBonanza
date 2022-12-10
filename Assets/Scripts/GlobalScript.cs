@@ -33,7 +33,7 @@ public class GlobalScript : MonoBehaviour
         this.maxTimer = 60;
         this.score = 0;
         this.accumulatedScore = 0;
-        this.level = 0;
+        this.level = -1; // We call advance level at start
         this.multiplier = 0;
         this.throws = 0;
         this.numPointTiles = 1;

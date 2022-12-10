@@ -37,5 +37,8 @@ public class ScoreTextScript : MonoBehaviour
         {
             this.scoreText.text = "Score: " + this.global.score.ToString();
         }
+
+        // Keep in front of player
+        this.transform.position = GameObject.Find("LeftHand").transform.TransformPoint(new Vector3(2f, 0f, 0f));
     }
 }

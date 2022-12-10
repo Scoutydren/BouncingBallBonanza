@@ -19,5 +19,8 @@ public class LevelTextScript : MonoBehaviour
     void Update()
     {
         this.leveltext.text = "Level: " + this.global.level.ToString();
+        // Keep in front of player
+        /*this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0, 0, 3f));
+        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;*/
     }
 }

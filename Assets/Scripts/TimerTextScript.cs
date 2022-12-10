@@ -36,5 +36,9 @@ public class TimerTextScript : MonoBehaviour
         {
             this.timerText.color = Color.yellow;
         }
+
+        // Keep in front of player
+        /*this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0, 0, 3f));
+        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;*/
     }
 }
