@@ -38,8 +38,13 @@ public class ScoreTextScript : MonoBehaviour
             this.scoreText.text = "Score: " + this.global.score.ToString();
         }
 
-        // Keep in front of player
-        this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.35f, 0.5f));
-        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
+        try
+        {
+            // Keep in front of player
+            this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.35f, 0.5f));
+            this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
+        }
+        catch (Exception e) {}
+        
     }
 }

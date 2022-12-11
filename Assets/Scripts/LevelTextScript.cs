@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,15 @@ public class LevelTextScript : MonoBehaviour
     {
         this.leveltext.text = "Level: " + this.global.level.ToString();
 
-        // Keep in front of player
-        this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.3f, 0.5f));
-        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
+        try
+        {
+            // Keep in front of player
+            this.transform.position =
+                GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.3f, 0.5f));
+            this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
+        }
+        catch (Exception e)
+        {
+        }
     }
 }

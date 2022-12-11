@@ -21,8 +21,16 @@ public class ThrowsTextScript : MonoBehaviour
     {
         this.throwsText.text = "Throws: " + this.global.throws;
 
-        // Keep in front of player
-        this.transform.position = GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.4f, 0.5f));
-        this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
+        try
+        {
+            // Keep in front of player
+            this.transform.position =
+                GameObject.Find("VRCamera").transform.TransformPoint(new Vector3(0.3f, -0.4f, 0.5f));
+            this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
 }
