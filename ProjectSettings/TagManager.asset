@@ -21,6 +21,9 @@ TagManager:
   - PlayerHandTag
   - NewGameButtonTag
   - Face
+  - HourglassTileTag
+  - SnowflakeTileTag
+  - FlameTileTag
   layers:
   - Default
   - TransparentFX

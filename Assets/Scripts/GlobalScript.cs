@@ -8,9 +8,9 @@ public class GlobalScript : MonoBehaviour
     // Global variables
     public float maxTimer;
     public float timer;
+    public bool freezeTimer;
 
     public int score;
-    public int accumulatedScore;
     public int level;
     public int multiplier;
     public int throws;
@@ -34,8 +34,8 @@ public class GlobalScript : MonoBehaviour
         this.completeAudio = audioSources[2];
 
         this.maxTimer = 60;
+        this.freezeTimer = false;
         this.score = 0;
-        this.accumulatedScore = 0;
         this.level = 0; // We call advance level at start
         this.multiplier = 0;
         this.throws = 0;
@@ -58,7 +58,10 @@ public class GlobalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
+        if (!this.freezeTimer)
+        {
+            timer -= Time.deltaTime;
+        }
         if (this.numPointTiles <= 0)
         {
             // Level complete, give bonus points and go to next level

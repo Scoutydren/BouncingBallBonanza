@@ -132,13 +132,13 @@ public class TileRandomizerScript : MonoBehaviour
                 Color color = Color.white;
                 if (j == randomizedWalls[0] && (i == 0))
                 {
-                    tile.tag = "10PtTileTag";
-                    meshRenderer.material = Resources.Load<Material>("10Points");
+                    tile.tag = "FlameTileTag";
+                    meshRenderer.material = Resources.Load<Material>("flame");
                 }
                 else if (j == randomizedWalls[1] && (i == 0))
                 {
-                    tile.tag = "BlackHoleTileTag";
-                    meshRenderer.material = Resources.Load<Material>("redX");
+                    tile.tag = "SnowflakeTileTag";
+                    meshRenderer.material = Resources.Load<Material>("snowflake");
                 }
                 else
                 {

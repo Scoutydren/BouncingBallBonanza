@@ -2579,8 +2579,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTimer: 20
   timer: 0
+  freezeTimer: 0
   score: 0
-  accumulatedScore: 0
   level: 0
   multiplier: 0
   throws: 0
@@ -5366,6 +5366,7 @@ GameObject:
   - component: {fileID: 769934714}
   - component: {fileID: 769934715}
   - component: {fileID: 769934716}
+  - component: {fileID: 769934717}
   m_Layer: 6
   m_Name: Ball
   m_TagString: BallTag
@@ -5589,6 +5590,9 @@ MonoBehaviour:
   slapSound: {fileID: 8300000, guid: 280c6cf0c4be3ea438eae79b6ea4ea62, type: 3}
   coinSound: {fileID: 8300000, guid: 7fb1a37e01a6415439ab825c1345c08f, type: 3}
   errorSound: {fileID: 8300000, guid: 21c5726b49e700a41843354cd2e6bde6, type: 3}
+  hourglassSound: {fileID: 8300000, guid: dab8c1fc070e4954da990ba3e243cf1f, type: 3}
+  snowflakeSound: {fileID: 8300000, guid: f3944fa92c53b124484e1cbd80875c73, type: 3}
+  flameSound: {fileID: 8300000, guid: fffde4e7f743b004eb16e45f48898e0b, type: 3}
   plus10UIPrefab: {fileID: 8040057859654230312, guid: 99081c96792c9eb4c8406230ad1dc6ee,
     type: 3}
   plus20UIPrefab: {fileID: 8040057859654230312, guid: 54008a2cd37c182498953bc8bdd79d61,
@@ -5789,6 +5793,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &769934717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769934706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65f8e7c125d2174d8359cd51ee835d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  speedMultiplier: 0
 --- !u!1 &807316995
 GameObject:
   m_ObjectHideFlags: 0
@@ -14855,6 +14873,10 @@ PrefabInstance:
     - target: {fileID: 191996, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 191996, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: m_TagString
+      value: Face
       objectReference: {fileID: 0}
     - target: {fileID: 429506, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.y

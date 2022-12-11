@@ -11,6 +11,9 @@ public class BallScript : MonoBehaviour
     public AudioClip slapSound;
     public AudioClip coinSound;
     public AudioClip errorSound;
+    public AudioClip hourglassSound;
+    public AudioClip snowflakeSound;
+    public AudioClip flameSound;
 
     public GameObject plus10UIPrefab;
     public GameObject plus20UIPrefab;
@@ -18,6 +21,7 @@ public class BallScript : MonoBehaviour
     public GameObject badTileUIPrefab;
 
     private GlobalScript global;
+    private TimedEventScript timedEventScript;
     private GameObject canvas;
     private GameObject camera;
     private Rigidbody rb;
@@ -36,6 +40,7 @@ public class BallScript : MonoBehaviour
     void Awake()
     {
         this.global = GameObject.Find("Global").GetComponent<GlobalScript>();
+        this.timedEventScript = GetComponent<TimedEventScript>();
         this.canvas = GameObject.Find("Canvas");
         this.camera = GameObject.Find("VRCamera");
         this.interactable = GetComponent<Interactable>();
@@ -65,7 +70,7 @@ public class BallScript : MonoBehaviour
     void Update()
     {
         // Constant velocity
-        this.rb.velocity = this.constantSpeed * rb.velocity.normalized;
+        this.rb.velocity = this.constantSpeed * rb.velocity.normalized * this.timedEventScript.speedMultiplier;
     }
 
     public void IncrSpeed(float speed)
@@ -129,7 +134,7 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("10PtTileTag"))
         {
             // Spawn + 10 points
-            this.SpawnPointUI(plus10UIPrefab, collider, true);
+            this.SpawnPointUI(plus10UIPrefab, collider, this.global.multiplier > 1);
 
             this.global.score += 10 * this.global.multiplier;
             this.global.multiplier = 1;
@@ -140,7 +145,7 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("20PtTileTag"))
         {
             // Spawn + 20 points
-            this.SpawnPointUI(plus20UIPrefab, collider, true);
+            this.SpawnPointUI(plus20UIPrefab, collider, this.global.multiplier > 1);
 
             this.global.score += 20 * this.global.multiplier;
             this.global.multiplier = 1;
@@ -151,7 +156,7 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("30PtTileTag"))
         {
             // Spawn + 30 points
-            this.SpawnPointUI(plus30UIPrefab, collider, true);
+            this.SpawnPointUI(plus30UIPrefab, collider, this.global.multiplier > 1);
 
             this.global.score += 30 * this.global.multiplier;
             this.global.multiplier = 1;
@@ -254,6 +259,30 @@ public class BallScript : MonoBehaviour
             this.ResetTile(tile, renderer, meshRenderer);
         }
 
+        // Hourglass tiles
+        else if (collider.CompareTag("HourglassTileTag"))
+        {
+            this.global.timer += this.global.maxTimer / 6;
+            this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
+        }
+
+        // Snowflake tiles
+        else if (collider.CompareTag("SnowflakeTileTag"))
+        {
+            this.timedEventScript.AddEffect(TimedEventScript.Effect.FREEZE);
+            this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
+        }
+
+        // Flame tiles
+        else if (collider.CompareTag("FlameTileTag"))
+        {
+            this.timedEventScript.AddEffect(TimedEventScript.Effect.SPEED);
+            this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
+        }
+
         // Empty tiles
         else if (collider.CompareTag("EmptyTileTag"))
         {
@@ -278,6 +307,18 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("BlackHoleTileTag"))
         {
             AudioSource.PlayClipAtPoint(this.errorSound, this.gameObject.transform.position);
+        }
+        else if (collider.CompareTag("HourglassTileTag"))
+        {
+            AudioSource.PlayClipAtPoint(this.hourglassSound, this.gameObject.transform.position);
+        }
+        else if (collider.CompareTag("SnowflakeTileTag"))
+        {
+            AudioSource.PlayClipAtPoint(this.snowflakeSound, this.gameObject.transform.position);
+        }
+        else if (collider.CompareTag("FlameTileTag"))
+        {
+            AudioSource.PlayClipAtPoint(this.flameSound, this.gameObject.transform.position);
         }
         else
         {
