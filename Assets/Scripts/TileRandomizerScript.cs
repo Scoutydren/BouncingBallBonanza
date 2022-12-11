@@ -146,7 +146,7 @@ public class TileRandomizerScript : MonoBehaviour
                 else if (randomizedList[i] < (pointPercentage + forcePercentage + multiplierPercentage + deathPercentage + throwPercentage) * numTiles)
                 {
                     tile.tag = "ThrowTileTag";
-                    color = Color.cyan;
+                    meshRenderer.material = Resources.Load<Material>("ThrowTile");
                 }
                 else
                 {
