@@ -137,8 +137,8 @@ public class TileRandomizerScript : MonoBehaviour
                 }
                 else if (j == randomizedWalls[1] && (i == 0))
                 {
-                    tile.tag = "2xMultiplier";
-                    meshRenderer.material = Resources.Load<Material>("2xMultiplier");
+                    tile.tag = "BlackHoleTileTag";
+                    meshRenderer.material = Resources.Load<Material>("redX");
                 }
                 else
                 {

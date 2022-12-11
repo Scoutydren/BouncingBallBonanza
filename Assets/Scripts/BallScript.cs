@@ -10,10 +10,12 @@ public class BallScript : MonoBehaviour
     public AudioClip collisionSound;
     public AudioClip slapSound;
     public AudioClip coinSound;
+    public AudioClip errorSound;
 
     public GameObject plus10UIPrefab;
     public GameObject plus20UIPrefab;
     public GameObject plus30UIPrefab;
+    public GameObject badTileUIPrefab;
 
     private GlobalScript global;
     private GameObject canvas;
@@ -117,14 +119,17 @@ public class BallScript : MonoBehaviour
         // Reset when ball hits black hole tile
         if (collider.CompareTag("BlackHoleTileTag"))
         {
+            this.SpawnPointUI(badTileUIPrefab, collider, false);
+
             this.global.score -= 50;
-            this.ResetBall();
+            this.numHits += 1;
+            this.ResetTile(tile, renderer, meshRenderer);
         }
         // Point tiles
         else if (collider.CompareTag("10PtTileTag"))
         {
             // Spawn + 10 points
-            this.SpawnPointUI(plus10UIPrefab, collider);
+            this.SpawnPointUI(plus10UIPrefab, collider, true);
 
             this.global.score += 10 * this.global.multiplier;
             this.global.multiplier = 1;
@@ -135,7 +140,7 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("20PtTileTag"))
         {
             // Spawn + 20 points
-            this.SpawnPointUI(plus20UIPrefab, collider);
+            this.SpawnPointUI(plus20UIPrefab, collider, true);
 
             this.global.score += 20 * this.global.multiplier;
             this.global.multiplier = 1;
@@ -146,7 +151,7 @@ public class BallScript : MonoBehaviour
         else if (collider.CompareTag("30PtTileTag"))
         {
             // Spawn + 30 points
-            this.SpawnPointUI(plus30UIPrefab, collider);
+            this.SpawnPointUI(plus30UIPrefab, collider, true);
 
             this.global.score += 30 * this.global.multiplier;
             this.global.multiplier = 1;
@@ -272,7 +277,7 @@ public class BallScript : MonoBehaviour
         }
         else if (collider.CompareTag("BlackHoleTileTag"))
         {
-            // Add black hole sound effect
+            AudioSource.PlayClipAtPoint(this.errorSound, this.gameObject.transform.position);
         }
         else
         {
@@ -285,13 +290,16 @@ public class BallScript : MonoBehaviour
         }
     }
 
-    private void SpawnPointUI(GameObject prefab, Collider collider)
+    private void SpawnPointUI(GameObject prefab, Collider collider, bool willMultiply)
     {
         Vector3 interpPos = 0.75f * this.transform.position + 0.15f * collider.transform.position + 0.10f * this.camera.transform.position;
 
         GameObject ui = GameObject.Instantiate(prefab, interpPos, Quaternion.identity);
         ui.transform.parent = this.canvas.transform;
-        ui.GetComponent<PointUIScript>().wasMultiplied = true;
+        if (willMultiply)
+        {
+            ui.GetComponent<PointUIScript>().wasMultiplied = true;
+        }
     }
 
     public void RemoveThrowability()
