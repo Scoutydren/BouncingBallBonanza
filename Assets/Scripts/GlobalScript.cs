@@ -33,7 +33,7 @@ public class GlobalScript : MonoBehaviour
         this.failAudio = audioSources[1];
         this.completeAudio = audioSources[2];
 
-        this.maxTimer = 60;
+        this.maxTimer = 50;
         this.freezeTimer = false;
         this.score = 0;
         this.level = 0; // We call advance level at start
@@ -98,6 +98,13 @@ public class GlobalScript : MonoBehaviour
         {
             // Music changes after lvl 3 (last tutorial level)
             this.ballScript.PlayActualMusic();
+
+            // Give more time because it's harder now
+            this.maxTimer = 100;
+        }
+        else if (this.level >= 4)
+        {
+            this.ballScript.IncrSpeed(0.05f);
         }
 
         this.timer = this.maxTimer;

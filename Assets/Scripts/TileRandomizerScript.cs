@@ -50,6 +50,12 @@ public class TileRandomizerScript : MonoBehaviour
 
     public void RandomizeTiles()
     {
+        // 1-3 is tutorial
+        // 4 are point tiles only
+        // 5-7 has gimmicks on each wall
+        // 8-9 now has black holes
+        // 10 you can now start losing (not done yet)
+        // Not optimized past 10
         if (this.global.level == 1)
         {
             RandomizeLevel1();
@@ -62,9 +68,21 @@ public class TileRandomizerScript : MonoBehaviour
         {
             RandomizeLevel3();
         }
+        else if (this.global.level == 4)
+        {
+            RandomizeLevelTilesOnly();
+        }
+        else if (this.global.level <= 7)
+        {
+            RandomizeLevelGimmicks();
+        }
+        else if (this.global.level <= 9)
+        {
+            RandomizeLevelBlackHole();
+        }
         else
         {
-            RandomizeTiles(this.global.level, 1);
+            RandomizeLevelBlackHole();
         }
     }
 
@@ -132,13 +150,13 @@ public class TileRandomizerScript : MonoBehaviour
                 Color color = Color.white;
                 if (j == randomizedWalls[0] && (i == 0))
                 {
-                    tile.tag = "FlameTileTag";
-                    meshRenderer.material = Resources.Load<Material>("flame");
+                    tile.tag = "10PtTileTag";
+                    meshRenderer.material = Resources.Load<Material>("10Points");
                 }
                 else if (j == randomizedWalls[1] && (i == 0))
                 {
-                    tile.tag = "SnowflakeTileTag";
-                    meshRenderer.material = Resources.Load<Material>("snowflake");
+                    tile.tag = "10PtTileTag";
+                    meshRenderer.material = Resources.Load<Material>("10Points");
                 }
                 else
                 {
@@ -148,7 +166,7 @@ public class TileRandomizerScript : MonoBehaviour
                 renderer.material.color = color;
             }
 
-            this.global.numPointTiles = 3;
+            this.global.numPointTiles = 2;
         }
     }
 
@@ -196,6 +214,339 @@ public class TileRandomizerScript : MonoBehaviour
 
             this.global.numPointTiles = 4;
         }
+    }
+
+    public void RandomizeLevelTilesOnly()
+    {
+        int pointTileCount = 0;
+        // For all walls, spawn 80% to spawn 1 10-point tile and 30% to spawn 1 20-point tile, spawn 1 30-point tile
+        string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
+
+        for (int j = 0; j < walls.Length; j++)
+        {
+
+            GameObject wall = GameObject.Find(walls[j]);
+
+            int numTiles = wall.transform.childCount;
+
+            List<int> randomizedTiles = RandomizeNums(numTiles);
+
+            for (int i = 0; i < numTiles; i++)
+            {
+                Transform tileTransform = wall.transform.GetChild(randomizedTiles[i]);
+                GameObject tile = tileTransform.gameObject;
+                Renderer renderer = tile.GetComponent<Renderer>();
+                MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
+
+                // reset color/material first
+                renderer.material.color = Color.white;
+                meshRenderer.material = null;
+
+                Color color = new Color(0, 1, 1);
+
+                if (i == 0)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.8)
+                    {
+                        tile.tag = "10PtTileTag";
+                        meshRenderer.material = Resources.Load<Material>("10Points");
+                        pointTileCount += 1;
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 1)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.3)
+                    {
+                        tile.tag = "20PtTileTag";
+                        meshRenderer.material = Resources.Load<Material>("20Points");
+                        pointTileCount += 1;
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 2)
+                {
+                    tile.tag = "30PtTileTag";
+                    meshRenderer.material = Resources.Load<Material>("30Points");
+                    pointTileCount += 1;
+                }
+                else
+                {
+                    tile.tag = "EmptyTileTag";
+                    meshRenderer.material = null;
+                    renderer.material.color = color;
+                }
+            }
+        }
+        this.global.numPointTiles = pointTileCount;
+    }
+
+    public void RandomizeLevelGimmicks()
+    {
+        int pointTileCount = 0;
+
+        // For all walls, spawn 50% to spawn 2 10-point tile and 35% to spawn 1 20-point tile, spawn 1 30-point tile, chance to spawn 1 gimmick tile
+        string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
+
+        for (int j = 0; j < walls.Length; j++)
+        {
+            GameObject wall = GameObject.Find(walls[j]);
+
+            int numTiles = wall.transform.childCount;
+
+            List<int> randomizedTiles = RandomizeNums(numTiles);
+
+            for (int i = 0; i < numTiles; i++)
+            {
+                Transform tileTransform = wall.transform.GetChild(randomizedTiles[i]);
+                GameObject tile = tileTransform.gameObject;
+                Renderer renderer = tile.GetComponent<Renderer>();
+                MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
+
+                // reset color/material first
+                renderer.material.color = Color.white;
+                meshRenderer.material = null;
+
+                Color color = new Color(0, 1, 1);
+
+                if (i == 0 || i == 1)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.5)
+                    {
+                        tile.tag = "10PtTileTag";
+                        meshRenderer.material = Resources.Load<Material>("10Points");
+                        pointTileCount += 1;
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 2)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.35)
+                    {
+                        tile.tag = "20PtTileTag";
+                        meshRenderer.material = Resources.Load<Material>("20Points");
+                        pointTileCount += 1;
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 3)
+                {
+                    tile.tag = "30PtTileTag";
+                    meshRenderer.material = Resources.Load<Material>("30Points");
+                    pointTileCount += 1;
+                }
+                else if (i == 4)
+                {
+                    float random = Random.Range(0, 1f);
+                    float threshold = this.global.level == 5 ? 0.25f : this.global.level == 6 ? 0.33f : 0.5f;
+                    if (random <= threshold)
+                    {
+                        // Gimmick List
+                        // Multiplier, Throw, Hourglass, Freeze, Speed
+                        int gimmick = Random.Range(0, 5);
+
+                        if (gimmick == 0)
+                        {
+                            tile.tag = "2xMultiplier";
+                            meshRenderer.material = Resources.Load<Material>("2xMultiplier");
+                        }
+                        else if (gimmick == 1)
+                        {
+                            tile.tag = "ThrowTileTag";
+                            meshRenderer.material = Resources.Load<Material>("throwTile");
+                        }
+                        else if (gimmick == 2)
+                        {
+                            tile.tag = "HourglassTileTag";
+                            meshRenderer.material = Resources.Load<Material>("hourglass");
+                        }
+                        else if (gimmick == 3)
+                        {
+                            tile.tag = "SnowflakeTileTag";
+                            meshRenderer.material = Resources.Load<Material>("snowflake");
+                        }
+                        else if (gimmick == 4)
+                        {
+                            tile.tag = "FlameTileTag";
+                            meshRenderer.material = Resources.Load<Material>("flame");
+                        }
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else
+                {
+                    tile.tag = "EmptyTileTag";
+                    meshRenderer.material = null;
+                    renderer.material.color = color;
+                }
+            }
+        }
+
+        this.global.numPointTiles = pointTileCount;
+    }
+
+    public void RandomizeLevelBlackHole()
+    {
+        int pointTileCount = 0;
+
+        // For all walls, spawn 30% to spawn 3 10-point tile and 40% to spawn 2 20-point tile, spawn 1 30-point tile, 30% to spawn 1 gimmick tile, 75% to spawn 1 black hole,
+        string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
+
+        for (int j = 0; j < walls.Length; j++)
+        {
+            GameObject wall = GameObject.Find(walls[j]);
+
+            int numTiles = wall.transform.childCount;
+
+            List<int> randomizedTiles = RandomizeNums(numTiles);
+
+            for (int i = 0; i < numTiles; i++)
+            {
+                Transform tileTransform = wall.transform.GetChild(randomizedTiles[i]);
+                GameObject tile = tileTransform.gameObject;
+                Renderer renderer = tile.GetComponent<Renderer>();
+                MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
+
+                // reset color/material first
+                renderer.material.color = Color.white;
+                meshRenderer.material = null;
+
+                Color color = new Color(0, 1, 1);
+
+                if (i == 0 || i == 1 || i == 2)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.3)
+                    {
+                        tile.tag = "10PtTileTag";
+                        meshRenderer.material = Resources.Load<Material>("10Points");
+                        pointTileCount += 1;
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 3 || i == 4)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.40)
+                    {
+                        tile.tag = "20PtTileTag";
+                        meshRenderer.material = Resources.Load<Material>("20Points");
+                        pointTileCount += 1;
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 5)
+                {
+                    tile.tag = "30PtTileTag";
+                    meshRenderer.material = Resources.Load<Material>("30Points");
+                    pointTileCount += 1;
+                }
+                else if (i == 6)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.3)
+                    {
+                        // Gimmick List
+                        // Multiplier, Throw, Hourglass, Freeze, Speed
+                        int gimmick = Random.Range(0, 5);
+
+                        if (gimmick == 0)
+                        {
+                            tile.tag = "2xMultiplier";
+                            meshRenderer.material = Resources.Load<Material>("2xMultiplier");
+                        }
+                        else if (gimmick == 1)
+                        {
+                            tile.tag = "ThrowTileTag";
+                            meshRenderer.material = Resources.Load<Material>("throwTile");
+                        }
+                        else if (gimmick == 2)
+                        {
+                            tile.tag = "HourglassTileTag";
+                            meshRenderer.material = Resources.Load<Material>("hourglass");
+                        }
+                        else if (gimmick == 3)
+                        {
+                            tile.tag = "SnowflakeTileTag";
+                            meshRenderer.material = Resources.Load<Material>("snowflake");
+                        }
+                        else if (gimmick == 4)
+                        {
+                            tile.tag = "FlameTileTag";
+                            meshRenderer.material = Resources.Load<Material>("flame");
+                        }
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else if (i == 7)
+                {
+                    float random = Random.Range(0, 1f);
+                    if (random <= 0.75)
+                    {
+                        tile.tag = "BlackHoleTileTag";
+                        meshRenderer.material = Resources.Load<Material>("redX");
+                    }
+                    else
+                    {
+                        tile.tag = "EmptyTileTag";
+                        meshRenderer.material = null;
+                        renderer.material.color = color;
+                    }
+                }
+                else
+                {
+                    tile.tag = "EmptyTileTag";
+                    meshRenderer.material = null;
+                    renderer.material.color = color;
+                }
+            }
+        }
+        
+        this.global.numPointTiles = pointTileCount;
     }
 
     // Will be depricated soon
@@ -316,7 +667,7 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    color = new Color(0, 32, 32);
+                    color = new Color(0, 0.0625f, 0.0625f);
                     meshRenderer.material = null;
                 }
                 renderer.material.color = color;

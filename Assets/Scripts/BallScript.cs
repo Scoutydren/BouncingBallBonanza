@@ -107,7 +107,7 @@ public class BallScript : MonoBehaviour
         }
         else
         {
-            renderer.material.color = new Color(0, 16, 16);
+            renderer.material.color = new Color(0, 1, 1);
         }
     }
 
