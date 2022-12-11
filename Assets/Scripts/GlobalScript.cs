@@ -118,4 +118,12 @@ public class GlobalScript : MonoBehaviour
             this.ballScript.RemoveThrowability();
         }
     }
+
+    public void SetHighScore()
+    {
+        if (this.score > PlayerPrefs.GetInt("highScore"))
+        {
+            PlayerPrefs.SetInt("highScore", this.score);
+        }
+    }
 }
