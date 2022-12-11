@@ -20,6 +20,7 @@ TagManager:
   - ThrowTileTag
   - PlayerHandTag
   - NewGameButtonTag
+  - Face
   layers:
   - Default
   - TransparentFX

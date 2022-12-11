@@ -10,6 +10,7 @@ public class BallScript : MonoBehaviour
     public AudioClip collisionSound;
     public AudioClip slapSound;
     public AudioClip coinSound;
+
     public GameObject plus10UIPrefab;
     public GameObject plus20UIPrefab;
     public GameObject plus30UIPrefab;
@@ -21,11 +22,11 @@ public class BallScript : MonoBehaviour
     private Interactable interactable;
     private Throwable throwable;
 
+    private AudioSource levelAudio;
+    private AudioSource tutorialAudio;
+
     private int hitThreshold;
     private int numHits;
-
-    private bool isGrabbed;
-    private bool isThrown;
 
     private float forceAmt;
     private float constantSpeed;
@@ -39,14 +40,15 @@ public class BallScript : MonoBehaviour
         this.throwable = GetComponent<Throwable>();
         this.rb = GetComponent<Rigidbody>();
 
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        this.levelAudio = audioSources[0];
+        this.tutorialAudio = audioSources[1];
+
         this.numHits = 0;
         this.hitThreshold = 50;
 
-        this.isGrabbed = false;
-        this.isThrown = false;
-
         this.forceAmt = 2f;
-        this.constantSpeed = 2f;
+        this.constantSpeed = 1f;
 
         // Ignore collision between ball and player's head
         //Physics.IgnoreLayerCollision(6, 7);
@@ -64,9 +66,9 @@ public class BallScript : MonoBehaviour
         this.rb.velocity = this.constantSpeed * rb.velocity.normalized;
     }
 
-    public void IncrSpeed()
+    public void IncrSpeed(float speed)
     {
-        this.constantSpeed += 0.25f;
+        this.constantSpeed += speed;
     }
 
 
@@ -85,8 +87,6 @@ public class BallScript : MonoBehaviour
         }
 
         this.numHits = 0;
-        this.isGrabbed = false;
-        this.isThrown = false;
     }
 
     void ResetTile(GameObject tile, Renderer renderer, MeshRenderer meshRenderer)
@@ -94,7 +94,14 @@ public class BallScript : MonoBehaviour
         // Set tile to empty tile
         tile.tag = "EmptyTileTag";
         meshRenderer.material = null;
-        renderer.material.color = Color.white;
+        if (this.global.level <= 3)
+        {
+            renderer.material.color = Color.white;
+        }
+        else
+        {
+            renderer.material.color = new Color(0, 16, 16);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -119,7 +126,8 @@ public class BallScript : MonoBehaviour
             // Spawn + 10 points
             this.SpawnPointUI(plus10UIPrefab, collider);
 
-            this.global.score += 10;
+            this.global.score += 10 * this.global.multiplier;
+            this.global.multiplier = 1;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
@@ -129,7 +137,8 @@ public class BallScript : MonoBehaviour
             // Spawn + 20 points
             this.SpawnPointUI(plus20UIPrefab, collider);
 
-            this.global.score += 20;
+            this.global.score += 20 * this.global.multiplier;
+            this.global.multiplier = 1;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
@@ -139,7 +148,8 @@ public class BallScript : MonoBehaviour
             // Spawn + 30 points
             this.SpawnPointUI(plus30UIPrefab, collider);
 
-            this.global.score += 30;
+            this.global.score += 30 * this.global.multiplier;
+            this.global.multiplier = 1;
             this.numHits += 1;
             this.global.numPointTiles -= 1;
             this.ResetTile(tile, renderer, meshRenderer);
@@ -281,6 +291,7 @@ public class BallScript : MonoBehaviour
 
         GameObject ui = GameObject.Instantiate(prefab, interpPos, Quaternion.identity);
         ui.transform.parent = this.canvas.transform;
+        ui.GetComponent<PointUIScript>().wasMultiplied = true;
     }
 
     public void RemoveThrowability()
@@ -295,5 +306,11 @@ public class BallScript : MonoBehaviour
         this.throwable.onDetachFromHand = new UnityEvent();
         this.throwable.onDetachFromHand.AddListener(this.global.DecrThrow);
         this.interactable.highlightOnHover = true;
+    }
+
+    public void PlayActualMusic()
+    {
+        this.tutorialAudio.Stop();
+        this.levelAudio.Play();
     }
 }

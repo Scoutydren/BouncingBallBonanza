@@ -25,18 +25,7 @@ public class ScoreTextScript : MonoBehaviour
 
     private void FormatScore()
     {
-        if (this.global.multiplier > 1)
-        {
-            this.scoreText.text = "Score: " + this.global.score.ToString() + " + " + this.global.accumulatedScore + " x " + this.global.multiplier;
-        }
-        else if (this.global.accumulatedScore > 0)
-        {
-            this.scoreText.text = "Score: " + this.global.score.ToString() + " + " + this.global.accumulatedScore;
-        }
-        else
-        {
-            this.scoreText.text = "Score: " + this.global.score.ToString();
-        }
+        this.scoreText.text = "Score: " + this.global.score.ToString();
 
         try
         {

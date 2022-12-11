@@ -36,7 +36,7 @@ public class GlobalScript : MonoBehaviour
         this.maxTimer = 60;
         this.score = 0;
         this.accumulatedScore = 0;
-        this.level = -1; // We call advance level at start
+        this.level = 0; // We call advance level at start
         this.multiplier = 0;
         this.throws = 0;
         this.numPointTiles = 1;
@@ -80,7 +80,23 @@ public class GlobalScript : MonoBehaviour
     void AdvanceLevel()
     {
         this.tickAudio.Stop();
-        
+
+        if (this.level == 1)
+        {
+            // Speed increases a little after lvl 2
+            this.ballScript.IncrSpeed(0.15f);
+        }
+        if (this.level == 2)
+        {
+            // Speed increases a little after lvl 2
+            this.ballScript.IncrSpeed(0.25f);
+        }
+        else if (this.level == 3)
+        {
+            // Music changes after lvl 3 (last tutorial level)
+            this.ballScript.PlayActualMusic();
+        }
+
         this.timer = this.maxTimer;
         this.level += 1;
         this.multiplier = 1;
@@ -88,8 +104,8 @@ public class GlobalScript : MonoBehaviour
 
         // TODO accumulated score func from multiplier
         this.ballScript.ResetBall();
-        this.ballScript.IncrSpeed();
-        this.randomizer.RandomizeTiles(this.level, this.randomizeThreshold);
+        //this.randomizer.RandomizeTiles(this.level, this.randomizeThreshold);
+        this.randomizer.RandomizeTiles();
     }
 
     // depreicated
