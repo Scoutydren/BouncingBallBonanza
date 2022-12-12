@@ -50,12 +50,12 @@ public class TileRandomizerScript : MonoBehaviour
 
     public void RandomizeTiles()
     {
-        // 1-3 is tutorial
-        // 4 are point tiles only
-        // 5-7 has gimmicks on each wall
-        // 8-9 now has black holes
-        // 10 you can now start losing (not done yet)
-        // Not optimized past 10
+        // 1-2 is tutorial
+        // 3 are point tiles only
+        // 4-5 has gimmicks on each wall
+        // 6-7 now has black holes
+        // 8 you can now start losing (not done yet)
+        // Not optimized past 8
         if (this.global.level == 1)
         {
             RandomizeLevel1();
@@ -66,17 +66,13 @@ public class TileRandomizerScript : MonoBehaviour
         }
         else if (this.global.level == 3)
         {
-            RandomizeLevel3();
-        }
-        else if (this.global.level == 4)
-        {
             RandomizeLevelTilesOnly();
         }
-        else if (this.global.level <= 7)
+        else if (this.global.level <= 5)
         {
             RandomizeLevelGimmicks();
         }
-        else if (this.global.level <= 9)
+        else if (this.global.level <= 7)
         {
             RandomizeLevelBlackHole();
         }
@@ -127,50 +123,6 @@ public class TileRandomizerScript : MonoBehaviour
     }
 
     public void RandomizeLevel2()
-    {
-        // Pick 2 walls and generate 1 tile
-        string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
-        List<int> randomizedWalls = RandomizeNums(6, 2);
-
-        for (int j = 0; j < walls.Length; j++)
-        {
-            GameObject wall = GameObject.Find(walls[j]);
-
-            int numTiles = wall.transform.childCount;
-
-            List<int> randomizedList = RandomizeNums(numTiles);
-
-            for (int i = 0; i < randomizedList.Count(); i++)
-            {
-                Transform tileTransform = wall.transform.GetChild(randomizedList[i]);
-                GameObject tile = tileTransform.gameObject;
-                Renderer renderer = tile.GetComponent<Renderer>();
-                MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                Color color = Color.white;
-                if (j == randomizedWalls[0] && (i == 0))
-                {
-                    tile.tag = "10PtTileTag";
-                    meshRenderer.material = Resources.Load<Material>("10Points");
-                }
-                else if (j == randomizedWalls[1] && (i == 0))
-                {
-                    tile.tag = "10PtTileTag";
-                    meshRenderer.material = Resources.Load<Material>("10Points");
-                }
-                else
-                {
-                    tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
-                }
-                renderer.material.color = color;
-            }
-
-            this.global.numPointTiles = 2;
-        }
-    }
-
-    public void RandomizeLevel3()
     {
         // Pick 3 walls and 3 tiles are 10 points, pick 1 wall, 1 is 20 points
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
@@ -362,7 +314,7 @@ public class TileRandomizerScript : MonoBehaviour
                 else if (i == 4)
                 {
                     float random = Random.Range(0, 1f);
-                    float threshold = this.global.level == 5 ? 0.25f : this.global.level == 6 ? 0.33f : 0.5f;
+                    float threshold = this.global.level == 4 ? 1f/3f : this.global.level == 5 ? 0.5f : 2f/3f;
                     if (random <= threshold)
                     {
                         // Gimmick List

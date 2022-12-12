@@ -69,6 +69,10 @@ public class GlobalScript : MonoBehaviour
             this.completeAudio.Play();
             AdvanceLevel();
         }
+        else if (this.timer > 0.2 * this.maxTimer && this.tickAudio.isPlaying)
+        {
+            this.tickAudio.Stop();
+        }
         else if (this.timer > 0 && this.timer <= 0.2 * this.maxTimer)
         {
             if (!tickAudio.isPlaying) this.tickAudio.Play();
@@ -86,23 +90,19 @@ public class GlobalScript : MonoBehaviour
 
         if (this.level == 1)
         {
-            // Speed increases a little after lvl 2
+            // Speed increases a little after lvl 1
             this.ballScript.IncrSpeed(0.15f);
         }
         if (this.level == 2)
         {
             // Speed increases a little after lvl 2
             this.ballScript.IncrSpeed(0.25f);
-        }
-        else if (this.level == 3)
-        {
-            // Music changes after lvl 3 (last tutorial level)
-            this.ballScript.PlayActualMusic();
 
-            // Give more time because it's harder now
-            this.maxTimer = 100;
+            // Music changes after lvl 2 (last tutorial level)
+            this.ballScript.PlayActualMusic();
+            this.maxTimer = 90;
         }
-        else if (this.level >= 4)
+        else if (this.level >= 3)
         {
             this.ballScript.IncrSpeed(0.05f);
         }

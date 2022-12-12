@@ -55,7 +55,7 @@ public class BallScript : MonoBehaviour
         this.hitThreshold = 50;
 
         this.forceAmt = 2f;
-        this.constantSpeed = 1f;
+        this.constantSpeed = 1.25f;
 
         // Ignore collision between ball and player's head/body
         // Physics.IgnoreLayerCollision(6, 7);
@@ -103,7 +103,7 @@ public class BallScript : MonoBehaviour
         // Set tile to empty tile
         tile.tag = "EmptyTileTag";
         meshRenderer.material = null;
-        if (this.global.level <= 3)
+        if (this.global.level <= 2)
         {
             renderer.material.color = Color.white;
         }
