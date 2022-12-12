@@ -106,7 +106,7 @@ public class GlobalScript : MonoBehaviour
         }
         else if (this.level >= 3)
         {
-            this.ballScript.IncrSpeed(0.05f);
+            this.ballScript.IncrSpeed(0.08f);
         }
 
         this.timer = this.maxTimer;

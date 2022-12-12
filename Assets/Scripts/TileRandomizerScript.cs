@@ -505,7 +505,7 @@ public class TileRandomizerScript : MonoBehaviour
     {
         int pointTileCount = 0;
 
-        // For all walls, spawn 30% to spawn 3 10-point tile and 40% to spawn 2 20-point tile, spawn 1 30-point tile, 30% to spawn 1 gimmick tile, 50% to spawn 1 black hole
+        // For all walls, spawn 30% to spawn 3 10-point tile and 40% to spawn 2 20-point tile, spawn 1 30-point tile, 40% to spawn 1 gimmick tile, 50% to spawn 1 black hole
         // Exactly 1 death tile
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
         int deathWall = Random.Range(0, 6);
@@ -572,7 +572,7 @@ public class TileRandomizerScript : MonoBehaviour
                 else if (i == 6)
                 {
                     float random = Random.Range(0, 1f);
-                    if (random <= 0.3)
+                    if (random <= 0.4)
                     {
                         // Gimmick List
                         // Multiplier, Throw, Hourglass, Freeze, Speed
