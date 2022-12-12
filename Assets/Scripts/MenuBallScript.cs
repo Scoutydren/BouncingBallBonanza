@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 public class MenuBallScript : MonoBehaviour
 {
     private int threshold;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.threshold = 30;
+        this.rb = GetComponent<Rigidbody>();
+        this.threshold = 20;
     }
 
     // Update is called once per frame
@@ -20,6 +22,8 @@ public class MenuBallScript : MonoBehaviour
         if (Math.Abs(this.transform.position[0]) > threshold || Math.Abs(this.transform.position[1]) > threshold || Math.Abs(this.transform.position[2]) > threshold)
         {
             // Reset position
+            this.rb.velocity = new Vector3(0, 0, 0);
+            this.rb.angularVelocity = new Vector3(0, 0, 0);
             this.transform.position = new Vector3(0, 1f, 0.5f);
         }
     }
