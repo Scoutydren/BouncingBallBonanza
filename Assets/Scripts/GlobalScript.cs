@@ -157,11 +157,7 @@ public class GlobalScript : MonoBehaviour
 
     public void SetCurrScore()
     {
-        if (this.score > PlayerPrefs.GetInt("currScore"))
-        {
-            PlayerPrefs.SetInt("currScore", this.score);
-        }
-
+        PlayerPrefs.SetInt("currScore", this.score);
         this.SetHighScore();
     }
 }
