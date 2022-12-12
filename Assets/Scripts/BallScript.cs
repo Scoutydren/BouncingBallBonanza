@@ -57,8 +57,10 @@ public class BallScript : MonoBehaviour
         this.forceAmt = 2f;
         this.constantSpeed = 1f;
 
-        // Ignore collision between ball and player's head
+        // Ignore collision between ball and player's head/body
         Physics.IgnoreLayerCollision(6, 7);
+        // Ignore collision between ball and world space canvas
+        Physics.IgnoreLayerCollision(6, 5);
     }
 
     // Start is called before the first frame update
