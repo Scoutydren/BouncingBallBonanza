@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Valve.VR.InteractionSystem;
+using UnityEngine.SceneManagement;
 
 public class BallScript : MonoBehaviour
 {
@@ -283,6 +284,13 @@ public class BallScript : MonoBehaviour
             this.timedEventScript.AddEffect(TimedEventScript.Effect.SPEED);
             this.numHits += 1;
             this.ResetTile(tile, renderer, meshRenderer);
+        }
+
+        // Flame tiles
+        else if (collider.CompareTag("DeathTileTag"))
+        {
+            this.global.SetCurrScore();
+            SceneManager.LoadScene("GameOverScene");
         }
 
         // Empty tiles

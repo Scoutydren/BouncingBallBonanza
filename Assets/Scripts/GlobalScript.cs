@@ -41,6 +41,8 @@ public class GlobalScript : MonoBehaviour
         this.throws = 0;
         this.numPointTiles = 1;
         this.randomizeThreshold = 1;
+
+        PlayerPrefs.SetInt("currScore", 0);
     }
 
     // Start is called before the first frame update
@@ -151,5 +153,15 @@ public class GlobalScript : MonoBehaviour
         {
             PlayerPrefs.SetInt("highScore", this.score);
         }
+    }
+
+    public void SetCurrScore()
+    {
+        if (this.score > PlayerPrefs.GetInt("currScore"))
+        {
+            PlayerPrefs.SetInt("currScore", this.score);
+        }
+
+        this.SetHighScore();
     }
 }

@@ -24,6 +24,7 @@ TagManager:
   - HourglassTileTag
   - SnowflakeTileTag
   - FlameTileTag
+  - DeathTileTag
   layers:
   - Default
   - TransparentFX

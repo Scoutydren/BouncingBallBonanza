@@ -14,6 +14,13 @@ public class MenuBallScript : MonoBehaviour
     {
         this.rb = GetComponent<Rigidbody>();
         this.threshold = 20;
+
+        // Reset position
+        this.rb.velocity = new Vector3(0, 0, 0);
+        this.rb.angularVelocity = new Vector3(0, 0, 0);
+        this.transform.position = new Vector3(0, 1f, 0.5f);
+
+        Debug.Log(this.transform.position);
     }
 
     // Update is called once per frame
@@ -34,7 +41,7 @@ public class MenuBallScript : MonoBehaviour
         Debug.Log(collider.tag);
         if (collider.CompareTag("NewGameButtonTag"))
         {
-            GameObject.Destroy(this);
+            GameObject.Destroy(this.gameObject);
             SceneManager.LoadScene("GameplayScene");
         }
     }
