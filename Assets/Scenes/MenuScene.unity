@@ -97,8 +97,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 66931011e8d06514290aadaf6f5a8abb,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 205f2cc864e34e647982a8fefe795c52,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -733,7 +735,7 @@ GameObject:
   - component: {fileID: 1380397249}
   - component: {fileID: 1380397248}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: Menu Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1574,7 +1576,7 @@ GameObject:
   - component: {fileID: 1798934077}
   - component: {fileID: 1798934084}
   m_Layer: 6
-  m_Name: Ball
+  m_Name: MenuBall
   m_TagString: BallTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

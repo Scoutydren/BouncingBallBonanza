@@ -30,6 +30,7 @@ public class MenuBallScript : MonoBehaviour
         Debug.Log(collider.tag);
         if (collider.CompareTag("NewGameButtonTag"))
         {
+            GameObject.Destroy(this);
             SceneManager.LoadScene("GameplayScene");
         }
     }

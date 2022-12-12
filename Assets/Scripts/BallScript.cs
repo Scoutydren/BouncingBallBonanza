@@ -58,7 +58,7 @@ public class BallScript : MonoBehaviour
         this.constantSpeed = 1f;
 
         // Ignore collision between ball and player's head/body
-        Physics.IgnoreLayerCollision(6, 7);
+        // Physics.IgnoreLayerCollision(6, 7);
         // Ignore collision between ball and world space canvas
         Physics.IgnoreLayerCollision(6, 5);
     }
