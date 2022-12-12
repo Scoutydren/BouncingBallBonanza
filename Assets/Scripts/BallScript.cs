@@ -58,7 +58,7 @@ public class BallScript : MonoBehaviour
         this.constantSpeed = 1f;
 
         // Ignore collision between ball and player's head
-        //Physics.IgnoreLayerCollision(6, 7);
+        Physics.IgnoreLayerCollision(6, 7);
     }
 
     // Start is called before the first frame update
