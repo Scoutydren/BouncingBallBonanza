@@ -37,6 +37,8 @@ public class BallScript : MonoBehaviour
 
     private float forceAmt;
     private float constantSpeed;
+    private float maxSpeed;
+    private float minSpeed;
 
     void Awake()
     {
@@ -57,6 +59,8 @@ public class BallScript : MonoBehaviour
 
         this.forceAmt = 2f;
         this.constantSpeed = 1.25f;
+        this.minSpeed = 1.25f;
+        this.maxSpeed = 5f;
 
         // Ignore collision between ball and player's head/body
         // Physics.IgnoreLayerCollision(6, 7);

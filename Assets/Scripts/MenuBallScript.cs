@@ -42,6 +42,7 @@ public class MenuBallScript : MonoBehaviour
         if (collider.CompareTag("NewGameButtonTag"))
         {
             GameObject.Destroy(this.gameObject);
+            GameObject.Destroy(GameObject.Find("Player"));
             SceneManager.LoadScene("GameplayScene");
         }
     }

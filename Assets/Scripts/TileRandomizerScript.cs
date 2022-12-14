@@ -103,6 +103,8 @@ public class TileRandomizerScript : MonoBehaviour
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
 
+                /*float randomGrayNumber = Random.Range(192, 230) / 256;
+                Color randomGray = new Color(randomGrayNumber, randomGrayNumber, randomGrayNumber);*/
                 Color color = Color.white;
                 
                 if (wallStr == walls[wallNum] && i == 0)
@@ -115,6 +117,7 @@ public class TileRandomizerScript : MonoBehaviour
                     tile.tag = "EmptyTileTag";
                     meshRenderer.material = null;
                 }
+                /*renderer.material.color = randomGray;*/
                 renderer.material.color = color;
             }
 
