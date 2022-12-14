@@ -43,6 +43,12 @@ public class GlobalScript : MonoBehaviour
         this.randomizeThreshold = 1;
 
         PlayerPrefs.SetInt("currScore", 0);
+
+        // Scale the room
+        // Note: this assumes the player is already standing upright when gameplay scene is loaded
+        float headPosition = GameObject.Find("VRCamera").transform.position[1];
+        GameObject.Find("CubeWorld").transform.localScale = headPosition / 2f * new Vector3(1f, 1f, 1f);
+
     }
 
     // Start is called before the first frame update
