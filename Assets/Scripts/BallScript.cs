@@ -60,7 +60,7 @@ public class BallScript : MonoBehaviour
         this.forceAmt = 2f;
         this.constantSpeed = 1.25f;
         this.minSpeed = 1.25f;
-        this.maxSpeed = 5f;
+        this.maxSpeed = 15f;
 
         // Ignore collision between ball and player's head/body
         // Physics.IgnoreLayerCollision(6, 7);
@@ -76,13 +76,20 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Constant velocity
-        this.rb.velocity = this.constantSpeed * rb.velocity.normalized * this.timedEventScript.speedMultiplier;
+        // Keep speed between min and max speeds
+        if (this.rb.velocity.magnitude > this.maxSpeed)
+        {
+            this.rb.velocity = this.maxSpeed * rb.velocity.normalized * this.timedEventScript.speedMultiplier;
+        }
+        if (this.rb.velocity.magnitude < this.minSpeed)
+        {
+            this.rb.velocity = this.minSpeed * rb.velocity.normalized * this.timedEventScript.speedMultiplier;
+        }
     }
 
     public void IncrSpeed(float speed)
     {
-        this.constantSpeed += speed;
+        this.minSpeed += speed;
     }
 
 
