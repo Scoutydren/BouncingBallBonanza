@@ -2586,6 +2586,14 @@ MonoBehaviour:
   throws: 0
   numPointTiles: 0
   randomizeThreshold: 0
+  newLevelIntroPrefab: {fileID: 3097646323464106061, guid: 448d130f2ae5ff14fa3c84ca87e53b06,
+    type: 3}
+  newLevelIntroTimer: 0
+  maxNewLevelIntroTimer: 0
+  countdownIntroPrefab: {fileID: 3097646323464106061, guid: 4782b515de002a54eba796be5fa62ce5,
+    type: 3}
+  countdownIntroTimer: 0
+  maxCountdownIntroTimer: 0
 --- !u!82 &396608756
 AudioSource:
   m_ObjectHideFlags: 0

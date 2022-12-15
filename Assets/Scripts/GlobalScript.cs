@@ -18,14 +18,32 @@ public class GlobalScript : MonoBehaviour
     public int numPointTiles; // Number of point tiles in world
     public int randomizeThreshold; // How many throws until the board randomizes
 
+    private GameObject canvas;
     private BallScript ballScript;
     private TileRandomizerScript randomizer;
     private AudioSource tickAudio;
     private AudioSource failAudio;
     private AudioSource completeAudio;
 
+    // For level transitions
+    private float outroTimer;
+    private float maxOutroTimer;
+
+    public GameObject newLevelIntroPrefab;
+    public float newLevelIntroTimer;
+    public float maxNewLevelIntroTimer;
+    private bool awaitingNewLevelIntroTimer;
+
+    public GameObject countdownIntroPrefab;
+    public float countdownIntroTimer;
+    public float maxCountdownIntroTimer;
+    private bool awaitingCountdownIntroTimer;
+
+    private bool levelBegun;
+
     void Awake()
     {
+        this.canvas = GameObject.Find("Canvas");
         this.ballScript = GameObject.Find("Ball").GetComponent<BallScript>();
         this.randomizer = GetComponent<TileRandomizerScript>();
         AudioSource[] audioSources = GetComponents<AudioSource>();
@@ -49,6 +67,12 @@ public class GlobalScript : MonoBehaviour
         float headPosition = GameObject.Find("VRCamera").transform.position[1];
         GameObject.Find("CubeWorld").transform.localScale = headPosition / 2f * new Vector3(1f, 1f, 1f);
 
+        this.maxOutroTimer = 4;
+        this.maxNewLevelIntroTimer = 4;
+        this.awaitingNewLevelIntroTimer = false;
+        this.maxCountdownIntroTimer = 3;
+        this.awaitingCountdownIntroTimer = false;
+        this.levelBegun = false;
     }
 
     // Start is called before the first frame update
@@ -60,42 +84,94 @@ public class GlobalScript : MonoBehaviour
         }
 
         // Moves to next level and resets any needed variables
-        AdvanceLevel();
+        PlayIntro();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!this.freezeTimer)
+        // Outro timer
+        if (this.outroTimer > 0)
         {
-            timer -= Time.deltaTime;
+            this.outroTimer -= Time.deltaTime;
         }
-        if (this.numPointTiles <= 0)
+
+        // New level intro timer
+        if (this.newLevelIntroTimer > 0)
         {
-            // Level complete, give bonus points and go to next level
-            this.score += 100;
-            this.completeAudio.Play();
-            AdvanceLevel();
-        }
-        else if (this.timer > 0.2 * this.maxTimer && this.tickAudio.isPlaying)
+            this.newLevelIntroTimer -= Time.deltaTime;
+        } else if (this.newLevelIntroTimer <= 0 && this.awaitingNewLevelIntroTimer)
         {
-            this.tickAudio.Stop();
+            this.awaitingNewLevelIntroTimer = false;
+            this.newLevelIntroTimer = 0;
+            this.DisplayCountdownIntro();
         }
-        else if (this.timer > 0 && this.timer <= 0.2 * this.maxTimer)
+
+        // Countdown intro timer
+        if (this.countdownIntroTimer > 0)
         {
-            if (!tickAudio.isPlaying) this.tickAudio.Play();
+            this.countdownIntroTimer -= Time.deltaTime;
         }
-        else if (this.timer <= 0)
+        else if (this.countdownIntroTimer <= 0 && this.awaitingCountdownIntroTimer)
         {
-            this.failAudio.Play();
-            AdvanceLevel();
+            this.awaitingCountdownIntroTimer = false;
+            this.countdownIntroTimer = 0;
+            this.AdvanceLevel();
         }
+
+        if (this.levelBegun)
+        {
+            // Level timer
+            if (!this.freezeTimer)
+            {
+                timer -= Time.deltaTime;
+            }
+            if (this.numPointTiles <= 0)
+            {
+                // Level complete, give bonus points and go to next level
+                this.levelBegun = false;
+                this.score += 100;
+                this.completeAudio.Play();
+                PlayIntro();
+            }
+            else if (this.timer > 0.2 * this.maxTimer && this.tickAudio.isPlaying)
+            {
+                this.tickAudio.Stop();
+            }
+            else if (this.timer > 0 && this.timer <= 0.2 * this.maxTimer)
+            {
+                if (!tickAudio.isPlaying) this.tickAudio.Play();
+            }
+            else if (this.timer <= 0)
+            {
+                this.failAudio.Play();
+                PlayIntro();
+            }
+        }
+        
     }
 
-    void AdvanceLevel()
+    void PlayOutro()
     {
+        /// Do level outro
+
+        // Make ball temporarily disappear
+        this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000);
+
+        // Display "Level complete and score" for 3 seconds
+
+
+        // Dim all tiles
+    }
+
+    void PlayIntro()
+    {
+        /// Do level intro
+
+        // Stop ticking if it exists
         this.tickAudio.Stop();
 
+        // Handle game logic
         if (this.level == 1)
         {
             // Speed increases a little after lvl 1
@@ -115,25 +191,59 @@ public class GlobalScript : MonoBehaviour
             this.ballScript.IncrSpeed(0.08f);
         }
 
-        this.timer = this.maxTimer;
+        // Reset nums
         this.level += 1;
         this.multiplier = 1;
         this.throws = 0;
 
-        // TODO accumulated score func from multiplier
-        this.ballScript.ResetBall();
-        //this.randomizer.RandomizeTiles(this.level, this.randomizeThreshold);
+        this.newLevelIntroTimer = this.maxNewLevelIntroTimer;
+        this.awaitingNewLevelIntroTimer = true;
+
+        // Display new level intro
+        GameObject ui = GameObject.Instantiate(this.newLevelIntroPrefab);
+        ui.transform.parent = this.canvas.transform;
+    }
+
+    void DisplayCountdownIntro()
+    {
+        /// Display countdown, randomize and undim asynchronously (countdown > undim)
+
+        this.countdownIntroTimer = this.maxCountdownIntroTimer;
+        this.awaitingCountdownIntroTimer = true;
+
+        // Display countdown intro
+        GameObject ui = GameObject.Instantiate(this.countdownIntroPrefab);
+        ui.transform.parent = this.canvas.transform;
+
+        // Randomize tiles
         this.randomizer.RandomizeTiles();
     }
 
-    // depreicated
-    /*public void FinishThrow()
-    {        
-        if (numThrows % randomizeThreshold == 0)
-        {
-            randomizer.RandomizeTiles(this.numThrows, this.randomizeThreshold);
-        }
-    }*/
+    void AdvanceLevel()
+    {
+        // If Level 0, skip this
+        // Freeze time
+        // Delete ball
+        // Display score for 3 seconds
+        // Dim all tiles
+
+        // After 3 seconds
+        // Randomize tiles & intermediate stuff
+
+        // Display new level
+        // Undim all tiles
+        // Countdown
+        // Spawn ball
+
+        // Spawn ball
+        this.ballScript.ResetBall();
+
+        // Set time
+        this.timer = this.maxTimer;
+
+        // Unfreeze time
+        this.levelBegun = true;
+    }
 
     public void IncrThrow()
     {
