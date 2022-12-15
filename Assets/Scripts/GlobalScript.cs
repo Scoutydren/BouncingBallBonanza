@@ -54,7 +54,7 @@ public class GlobalScript : MonoBehaviour
         this.failAudio = audioSources[1];
         this.completeAudio = audioSources[2];
 
-        this.maxTimer = 10;
+        this.maxTimer = 50;
         this.freezeTimer = false;
         this.score = 0;
         this.level = 0; // We call advance level at start
