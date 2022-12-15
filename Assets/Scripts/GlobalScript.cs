@@ -26,8 +26,11 @@ public class GlobalScript : MonoBehaviour
     private AudioSource completeAudio;
 
     // For level transitions
-    private float outroTimer;
-    private float maxOutroTimer;
+    public GameObject levelCompleteOutroPrefab;
+    public GameObject scoreOutroPrefab;
+    public float outroTimer;
+    public float maxOutroTimer;
+    private bool awaitingOutroTimer;
 
     public GameObject newLevelIntroPrefab;
     public float newLevelIntroTimer;
@@ -68,6 +71,7 @@ public class GlobalScript : MonoBehaviour
         GameObject.Find("CubeWorld").transform.localScale = headPosition / 2f * new Vector3(1f, 1f, 1f);
 
         this.maxOutroTimer = 4;
+        this.awaitingOutroTimer = false;
         this.maxNewLevelIntroTimer = 4;
         this.awaitingNewLevelIntroTimer = false;
         this.maxCountdownIntroTimer = 3;
@@ -95,12 +99,19 @@ public class GlobalScript : MonoBehaviour
         {
             this.outroTimer -= Time.deltaTime;
         }
+        else if (this.outroTimer <= 0 && this.awaitingOutroTimer)
+        {
+            this.awaitingOutroTimer = false;
+            this.outroTimer = 0;
+            this.PlayIntro();
+        }
 
         // New level intro timer
         if (this.newLevelIntroTimer > 0)
         {
             this.newLevelIntroTimer -= Time.deltaTime;
-        } else if (this.newLevelIntroTimer <= 0 && this.awaitingNewLevelIntroTimer)
+        }
+        else if (this.newLevelIntroTimer <= 0 && this.awaitingNewLevelIntroTimer)
         {
             this.awaitingNewLevelIntroTimer = false;
             this.newLevelIntroTimer = 0;
@@ -129,11 +140,9 @@ public class GlobalScript : MonoBehaviour
             if (this.numPointTiles <= 0)
             {
                 // Level complete, give bonus points and go to next level
-                this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000); // move this later
-                this.levelBegun = false;
                 this.score += 100;
                 this.completeAudio.Play();
-                PlayIntro();
+                PlayOutro();
             }
             else if (this.timer > 0.2 * this.maxTimer && this.tickAudio.isPlaying)
             {
@@ -145,8 +154,6 @@ public class GlobalScript : MonoBehaviour
             }
             else if (this.timer <= 0)
             {
-                this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000); // move this later
-                this.levelBegun = false;
                 this.failAudio.Play();
                 PlayIntro();
             }
@@ -158,11 +165,20 @@ public class GlobalScript : MonoBehaviour
     {
         /// Do level outro
 
+        this.levelBegun = false;
+
         // Make ball temporarily disappear
         this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000);
 
         // Display "Level complete and score" for 3 seconds
+        this.outroTimer = this.maxOutroTimer;
+        this.awaitingOutroTimer = true;
 
+        // Display level complete and score outro
+        GameObject ui = GameObject.Instantiate(this.levelCompleteOutroPrefab);
+        ui.transform.parent = this.canvas.transform;
+        ui = GameObject.Instantiate(this.scoreOutroPrefab);
+        ui.transform.parent = this.canvas.transform;
 
         // Dim all tiles
     }

@@ -774,4 +774,9 @@ public class TileRandomizerScript : MonoBehaviour
 
         this.global.numPointTiles = numPointTiles;
     }
+
+    public void DimTiles()
+    {
+
+    }
 }
