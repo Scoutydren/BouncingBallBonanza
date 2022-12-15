@@ -56,8 +56,16 @@ public class LevelCompleteOutroScript : MonoBehaviour
         try
         {
             // Keep in front of player
-            this.transform.position =
+            if (this.global.level == 2)
+            {
+                this.transform.position =
+                GameObject.Find("VRCamera").transform.TransformPoint(pos - new Vector3(0.03f, 0, 0));
+            }
+            else
+            {
+                this.transform.position =
                 GameObject.Find("VRCamera").transform.TransformPoint(pos);
+            }            
             this.transform.rotation = GameObject.Find("VRCamera").transform.rotation;
         }
         catch (Exception)

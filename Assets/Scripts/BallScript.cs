@@ -115,14 +115,13 @@ public class BallScript : MonoBehaviour
     {
         // Set tile to empty tile
         tile.tag = "EmptyTileTag";
-        meshRenderer.material = null;
         if (this.global.level <= 2)
         {
-            renderer.material.color = Color.white;
+            meshRenderer.material = Resources.Load<Material>("Grid");
         }
         else
         {
-            renderer.material.color = new Color(0, 1, 1);
+            meshRenderer.material = this.RandomBubbleTile();
         }
     }
 
@@ -383,5 +382,22 @@ public class BallScript : MonoBehaviour
     {
         this.tutorialAudio.Stop();
         this.levelAudio.Play();
+    }
+    public Material RandomBubbleTile()
+    {
+        int i = UnityEngine.Random.Range(0, 4);
+        switch (i)
+        {
+            case 0:
+                return Resources.Load<Material>("bubbles1");
+            case 1:
+                return Resources.Load<Material>("bubbles2");
+            case 2:
+                return Resources.Load<Material>("bubbles3");
+            case 3:
+                return Resources.Load<Material>("bubbles4");
+            default:
+                return null;
+        }
     }
 }

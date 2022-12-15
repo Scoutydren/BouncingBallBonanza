@@ -102,10 +102,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                /*float randomGrayNumber = Random.Range(192, 230) / 256;
-                Color randomGray = new Color(randomGrayNumber, randomGrayNumber, randomGrayNumber);*/
-                Color color = Color.white;
+                TileScript tileScript = tile.GetComponent<TileScript>();
                 
                 if (wallStr == walls[wallNum] && i == 0)
                 {
@@ -115,21 +112,18 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
+                    meshRenderer.material = Resources.Load<Material>("Grid");
                 }
-                /*renderer.material.color = randomGray;*/
-                renderer.material.color = color;
             }
-
-            this.global.numPointTiles = 1;
         }
+        this.global.numPointTiles = 1;
     }
 
     public void RandomizeLevel2()
     {
-        // Pick 3 walls and 3 tiles are 10 points, pick 1 wall, 1 is 20 points
+        // Pick 2 walls and 2 tiles are 10 points, pick 1 wall, 1 is 20 points
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
-        HashSet<int> randomizedWalls = new HashSet<int>(RandomizeNums(6, 3));
+        HashSet<int> randomizedWalls = new HashSet<int>(RandomizeNums(6, 2));
         int random20 = Random.Range(0, 6);
 
         for (int j = 0; j < walls.Length; j++)
@@ -146,8 +140,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                Color color = Color.white;
+                TileScript tileScript = tile.GetComponent<TileScript>();
 
                 if (randomizedWalls.Contains(j) && i == 0)
                 {
@@ -162,13 +155,13 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
+                    meshRenderer.material = Resources.Load<Material>("Grid");
                 }
-                renderer.material.color = color;
+                renderer.material.color = Color.black;
+                tileScript.UnDim();
             }
-
-            this.global.numPointTiles = 4;
         }
+        this.global.numPointTiles = 3;
     }
 
     public void RandomizeLevelTilesOnly()
@@ -192,12 +185,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                // reset color/material first
-                renderer.material.color = Color.white;
-                meshRenderer.material = null;
-
-                Color color = new Color(0, 1, 1);
+                TileScript tileScript = tile.GetComponent<TileScript>();
 
                 if (i == 0)
                 {
@@ -211,8 +199,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 1)
@@ -227,8 +214,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 2)
@@ -240,9 +226,10 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
-                    renderer.material.color = color;
+                    meshRenderer.material = this.RandomBubbleTile();
                 }
+                renderer.material.color = Color.black;
+                tileScript.UnDim();
             }
         }
         this.global.numPointTiles = pointTileCount;
@@ -269,12 +256,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                // reset color/material first
-                renderer.material.color = Color.white;
-                meshRenderer.material = null;
-
-                Color color = new Color(0, 1, 1);
+                TileScript tileScript = tile.GetComponent<TileScript>();
 
                 if (i == 0 || i == 1)
                 {
@@ -288,8 +270,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 2)
@@ -304,8 +285,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 3)
@@ -353,16 +333,16 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
-                    renderer.material.color = color;
+                    meshRenderer.material = this.RandomBubbleTile();
                 }
+                renderer.material.color = Color.black;
+                tileScript.UnDim();
             }
         }
 
@@ -390,12 +370,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                // reset color/material first
-                renderer.material.color = Color.white;
-                meshRenderer.material = null;
-
-                Color color = new Color(0, 1, 1);
+                TileScript tileScript = tile.GetComponent<TileScript>();
 
                 if (i == 0 || i == 1 || i == 2)
                 {
@@ -409,8 +384,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 3 || i == 4)
@@ -425,8 +399,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 5)
@@ -473,8 +446,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 7)
@@ -488,16 +460,16 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
-                    renderer.material.color = color;
+                    meshRenderer.material = this.RandomBubbleTile();
                 }
+                renderer.material.color = Color.black;
+                tileScript.UnDim();
             }
         }
         
@@ -527,12 +499,7 @@ public class TileRandomizerScript : MonoBehaviour
                 GameObject tile = tileTransform.gameObject;
                 Renderer renderer = tile.GetComponent<Renderer>();
                 MeshRenderer meshRenderer = tile.GetComponent<MeshRenderer>();
-
-                // reset color/material first
-                renderer.material.color = Color.white;
-                meshRenderer.material = null;
-
-                Color color = new Color(0, 1, 1);
+                TileScript tileScript = tile.GetComponent<TileScript>();
 
                 if (i == 0 || i == 1 || i == 2)
                 {
@@ -546,8 +513,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 3 || i == 4)
@@ -562,8 +528,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 5)
@@ -610,8 +575,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == 7)
@@ -625,8 +589,7 @@ public class TileRandomizerScript : MonoBehaviour
                     else
                     {
                         tile.tag = "EmptyTileTag";
-                        meshRenderer.material = null;
-                        renderer.material.color = color;
+                        meshRenderer.material = this.RandomBubbleTile();
                     }
                 }
                 else if (i == numTiles - 1 && j == deathWall)
@@ -638,16 +601,17 @@ public class TileRandomizerScript : MonoBehaviour
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = null;
-                    renderer.material.color = color;
+                    meshRenderer.material = this.RandomBubbleTile();
                 }
+                renderer.material.color = Color.black;
+                tileScript.UnDim();
             }
         }
 
         this.global.numPointTiles = pointTileCount;
     }
 
-    // Will be depricated soon
+    /*// Will be depricated soon
     public void RandomizeTiles(int difficulty, int randomizeThreshold)
     {
         string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
@@ -773,10 +737,45 @@ public class TileRandomizerScript : MonoBehaviour
         }
 
         this.global.numPointTiles = numPointTiles;
+    }*/
+
+    public Material RandomBubbleTile()
+    {
+        int i = Random.Range(0, 4);
+        switch (i)
+        {
+            case 0:
+                return Resources.Load<Material>("bubbles1");
+            case 1:
+                return Resources.Load<Material>("bubbles2");
+            case 2:
+                return Resources.Load<Material>("bubbles3");
+            case 3:
+                return Resources.Load<Material>("bubbles4");
+            default:
+                return null;
+        }
     }
 
     public void DimTiles()
     {
+        string[] walls = new string[6] { "FrontWall", "BackWall", "LeftWall", "RightWall", "TopWall", "BottomWall" };
+        int wallNum = Random.Range(0, 6);
 
+        foreach (string wallStr in walls)
+        {
+            GameObject wall = GameObject.Find(wallStr);
+
+            int numTiles = wall.transform.childCount;
+
+            for (int i = 0; i < numTiles; i++)
+            {
+                Transform tileTransform = wall.transform.GetChild(i);
+                GameObject tile = tileTransform.gameObject;
+                TileScript tileScript = tile.GetComponent<TileScript>();
+
+                tileScript.Dim();
+            }
+        }
     }
 }
