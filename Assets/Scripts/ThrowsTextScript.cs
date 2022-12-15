@@ -21,6 +21,15 @@ public class ThrowsTextScript : MonoBehaviour
     {
         this.throwsText.text = "Throws: " + this.global.throws;
 
+        if (this.global.levelBegun)
+        {
+            this.throwsText.text = "Throws: " + this.global.throws;
+        }
+        else
+        {
+            this.throwsText.text = "";
+        }
+
         try
         {
             // Keep in front of player

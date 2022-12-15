@@ -25,7 +25,14 @@ public class ScoreTextScript : MonoBehaviour
 
     private void FormatScore()
     {
-        this.scoreText.text = "Score: " + this.global.score.ToString();
+        if (this.global.levelBegun)
+        {
+            this.scoreText.text = "Score: " + this.global.score.ToString();
+        }
+        else
+        {
+            this.scoreText.text = "";
+        }
 
         try
         {

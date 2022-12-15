@@ -39,7 +39,7 @@ public class GlobalScript : MonoBehaviour
     public float maxCountdownIntroTimer;
     private bool awaitingCountdownIntroTimer;
 
-    private bool levelBegun;
+    public bool levelBegun;
 
     void Awake()
     {
@@ -129,6 +129,7 @@ public class GlobalScript : MonoBehaviour
             if (this.numPointTiles <= 0)
             {
                 // Level complete, give bonus points and go to next level
+                this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000); // move this later
                 this.levelBegun = false;
                 this.score += 100;
                 this.completeAudio.Play();
@@ -144,6 +145,8 @@ public class GlobalScript : MonoBehaviour
             }
             else if (this.timer <= 0)
             {
+                this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000); // move this later
+                this.levelBegun = false;
                 this.failAudio.Play();
                 PlayIntro();
             }

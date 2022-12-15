@@ -19,7 +19,15 @@ public class TimerTextScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.timerText.text = "Timer: " + this.global.timer.ToString("0.0");
+        if (this.global.levelBegun)
+        {
+            this.timerText.text = "Timer: " + this.global.timer.ToString("0.0");
+        }
+        else
+        {
+            this.timerText.text = "";
+        }
+
         if (this.global.freezeTimer)
         {
             this.timerText.color = new Color(0.5f, 0.94f, 1);

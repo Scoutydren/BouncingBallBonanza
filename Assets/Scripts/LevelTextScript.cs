@@ -19,7 +19,14 @@ public class LevelTextScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.leveltext.text = "Level: " + this.global.level.ToString();
+        if (this.global.levelBegun)
+        {
+            this.leveltext.text = "Level: " + this.global.level.ToString();
+        }
+        else
+        {
+            this.leveltext.text = "";
+        }
 
         try
         {
