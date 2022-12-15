@@ -117,7 +117,7 @@ public class BallScript : MonoBehaviour
         tile.tag = "EmptyTileTag";
         if (this.global.level <= 2)
         {
-            meshRenderer.material = Resources.Load<Material>("Grid");
+            meshRenderer.material = Resources.Load<Material>("default");
         }
         else
         {

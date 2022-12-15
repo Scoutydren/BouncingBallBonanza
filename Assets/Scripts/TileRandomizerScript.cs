@@ -107,12 +107,12 @@ public class TileRandomizerScript : MonoBehaviour
                 if (wallStr == walls[wallNum] && i == 0)
                 {
                     tile.tag = "10PtTileTag";
-                    meshRenderer.material = Resources.Load<Material>("10Points");
+                    meshRenderer.material = Resources.Load<Material>("10Points-gray");
                 }
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = Resources.Load<Material>("Grid");
+                    meshRenderer.material = Resources.Load<Material>("default");
                 }
             }
         }
@@ -145,17 +145,17 @@ public class TileRandomizerScript : MonoBehaviour
                 if (randomizedWalls.Contains(j) && i == 0)
                 {
                     tile.tag = "10PtTileTag";
-                    meshRenderer.material = Resources.Load<Material>("10Points");
+                    meshRenderer.material = Resources.Load<Material>("10Points-gray");
                 }
                 else if (j == random20 && i == numTiles - 1)
                 {
                     tile.tag = "20PtTileTag";
-                    meshRenderer.material = Resources.Load<Material>("20Points");
+                    meshRenderer.material = Resources.Load<Material>("20Points-gray");
                 }
                 else
                 {
                     tile.tag = "EmptyTileTag";
-                    meshRenderer.material = Resources.Load<Material>("Grid");
+                    meshRenderer.material = Resources.Load<Material>("default");
                 }
                 renderer.material.color = Color.black;
                 tileScript.UnDim();

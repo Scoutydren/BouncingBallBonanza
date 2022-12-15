@@ -166,6 +166,9 @@ public class GlobalScript : MonoBehaviour
         /// Do level outro
 
         this.levelBegun = false;
+        
+        // Stop ticking if it exists
+        this.tickAudio.Stop();
 
         // Make ball temporarily disappear
         this.ballScript.gameObject.transform.position = new Vector3(1000, 1000, 1000);
@@ -187,9 +190,6 @@ public class GlobalScript : MonoBehaviour
     void PlayIntro()
     {
         /// Do level intro
-
-        // Stop ticking if it exists
-        this.tickAudio.Stop();
 
         // Handle game logic
         if (this.level == 1)

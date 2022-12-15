@@ -39,7 +39,6 @@ public class CountdownIntroScript : MonoBehaviour
         }
         catch (Exception)
         {
-            Debug.Log("Exception in NewlevelIntroScript.cs");
         }
     }
 }
