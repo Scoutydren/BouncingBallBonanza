@@ -20,6 +20,7 @@ public class BallScript : MonoBehaviour
     public GameObject plus20UIPrefab;
     public GameObject plus30UIPrefab;
     public GameObject badTileUIPrefab;
+    public GameObject collisionParticlesPrefab;
 
     private GlobalScript global;
     private TimedEventScript timedEventScript;
@@ -39,6 +40,9 @@ public class BallScript : MonoBehaviour
     private float constantSpeed;
     private float maxSpeed;
     private float minSpeed;
+
+    private float particleTimer;
+    private float spawnParticleTime;
 
     void Awake()
     {
@@ -66,6 +70,8 @@ public class BallScript : MonoBehaviour
         // Physics.IgnoreLayerCollision(6, 7);
         // Ignore collision between ball and world space canvas
         Physics.IgnoreLayerCollision(6, 5);
+
+        this.spawnParticleTime = 0.5f;
     }
 
     // Start is called before the first frame update
@@ -134,6 +140,7 @@ public class BallScript : MonoBehaviour
         string wallName = tile.transform.parent.name;
 
         OnCollisionSound(collider);
+        Instantiate(this.collisionParticlesPrefab, this.transform.position, this.transform.rotation);
 
         // Reset when ball hits black hole tile
         if (collider.CompareTag("BlackHoleTileTag"))

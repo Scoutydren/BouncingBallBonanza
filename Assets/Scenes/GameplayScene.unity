@@ -6201,6 +6201,8 @@ MonoBehaviour:
     type: 3}
   badTileUIPrefab: {fileID: 8040057859654230312, guid: 6263922bd14258f44a97da7e11eb8d8d,
     type: 3}
+  collisionParticlesPrefab: {fileID: 7326687501181362579, guid: 18749a41c351ba94884c62734d7b265a,
+    type: 3}
 --- !u!82 &769934715
 AudioSource:
   m_ObjectHideFlags: 0
