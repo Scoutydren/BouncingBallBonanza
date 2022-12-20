@@ -1,5 +1,10 @@
 # BouncingBallBonanza
 
+## Videos
+<a href="https://l.messenger.com/l.php?u=https%3A%2F%2Fyoutu.be%2FDPqXwkaUSH8&h=AT0y-_ZwUQGQK-HCyz7C-m5sWNXDIAjY0nPpp16pNvbBujApTdr2NVj5gklAY6jjv5Bu2FiPXfG57Gyhkr55AcmMyuSyCBU-X5e50DmbUrvQOvXS_eEun1FQ2ZDLmp7f7tbntS9jRnVdRIObX036Dw">Trailer</a>
+
+<a href="https://drive.google.com/drive/folders/1W6pgkqhY7gSMC-r_0--Vu4M786TSt2g_?usp=sharing">Demo</a>
+
 ## User Guide
 * The player can move freely throughout the level (by physically moving) and hit the ball by smacking the hands (controllers) against the yellow ball.
 * Each level will have tiles on the wall that have various effects. The most common ones are point tiles, denoted by the number of points they are worth (10, 20, or 30).
